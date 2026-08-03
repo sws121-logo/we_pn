@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- COLOR & RESET --- */
+        /* --- COLOR SCHEME --- */
         :root { 
             --green: #6B8E5A; --dark-green: #3d5431; --black: #121212; --dark-gray: #1e1e1e; 
             --light-gray: #2a2a2a; --white: #ffffff; --gold: #d4af37;
@@ -19,31 +19,32 @@
         
         /* --- HEADER --- */
         header {
-            background: rgba(18, 18, 18, 0.85); backdrop-filter: blur(12px);
+            background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(12px);
             position: fixed; width: 100%; top: 0; z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.05); padding: 12px 5%;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .logo-container { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
-        .logo-img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
-        .brand-text { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--green); letter-spacing: 1px; }
+        .logo-container { display: flex; align-items: center; gap: 15px; cursor: pointer; text-decoration: none; }
+        .logo-img { width: 60px; height: 60px; object-fit: contain; /* Logo will sit here */ }
+        .brand-text { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--green); letter-spacing: 1px; }
+        
         .nav-links { display: flex; align-items: center; gap: 30px; }
         .nav-links a { color: var(--white); text-decoration: none; font-size: 14px; font-weight: 500; transition: 0.3s; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
         .nav-links a:hover { color: var(--green); }
         
-        /* Cart & User Auth */
         .user-controls { display: flex; align-items: center; gap: 20px; }
         .cart-icon { position: relative; cursor: pointer; font-size: 20px; }
         .cart-count { position: absolute; top: -8px; right: -10px; background: var(--gold); color: var(--black); border-radius: 50%; padding: 2px 7px; font-size: 11px; font-weight: 800; }
+        
         .auth-btn {
             background: var(--green); border: none; padding: 8px 22px; border-radius: 30px; 
             color: var(--white); font-weight: 600; cursor: pointer; font-size: 13px; transition: 0.3s;
         }
-        .auth-btn:hover { background: var(--gold); transform: scale(1.05); }
+        .auth-btn:hover { background: var(--gold); transform: scale(1.05); color: black; }
         .user-greeting { font-size: 14px; color: var(--gold); font-weight: 600; display: none; }
 
-        /* --- MAIN CONTENT BODY (Dynamic SPA) --- */
-        main { margin-top: 80px; flex: 1; }
+        /* --- MAIN BODY --- */
+        main { margin-top: 85px; flex: 1; }
         .page { display: none; animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
         .page.active { display: block; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -51,20 +52,12 @@
         /* --- HOME PAGE --- */
         .hero {
             height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 0 5%; background: linear-gradient(to bottom, rgba(18,18,18,0.2), rgba(18,18,18,0.9)), url('https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+            text-align: center; padding: 0 5%; position: relative;
         }
         .hero h1 { font-size: 4.5rem; font-family: 'Playfair Display', serif; margin-bottom: 15px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
         .hero h1 span { color: var(--green); }
-        .hero p { max-width: 600px; font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        .hero p { max-width: 600px; font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; }
         
-        .info-sections { padding: 60px 5%; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .info-card { background: var(--dark-gray); padding: 30px; border-radius: 20px; border: 1px solid #333; text-align: center; transition: 0.4s; }
-        .info-card:hover { transform: translateY(-10px); border-color: var(--green); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .info-card h3 { color: var(--gold); margin-bottom: 15px; }
-        .testimonial-card { padding: 20px; border-left: 4px solid var(--green); margin-top: 15px; font-style: italic; color: #bbb; }
-
         /* --- SHOP / PRODUCTS --- */
         .products-section { padding: 50px 5%; }
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 40px; font-family: 'Playfair Display', serif; color: var(--gold); }
@@ -72,9 +65,10 @@
         
         .product-card {
             background: var(--dark-gray); border-radius: 20px; overflow: hidden;
-            border: 1px solid #2a2a2a; transition: 0.4s ease; cursor: pointer; position: relative;
+            border: 1px solid #2a2a2a; transition: 0.4s ease; cursor: pointer; 
         }
         .product-card:hover { transform: translateY(-8px); border-color: var(--green); box-shadow: 0 15px 30px rgba(107, 142, 90, 0.15); }
+        
         .card-img-wrapper { height: 280px; background: #222; overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #333; }
         .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
         .card-body { padding: 25px; }
@@ -84,10 +78,10 @@
         .price-india { color: var(--gold); font-weight: 700; font-size: 20px; }
         .price-intl { color: #666; font-size: 12px; text-decoration: line-through; margin-left: 5px; }
 
-        /* --- PRODUCT DETAIL PAGE --- */
+        /* --- DETAIL PAGE --- */
         .detail-container { max-width: 1200px; margin: 40px auto; padding: 20px; display: flex; gap: 50px; flex-wrap: wrap; }
         .detail-img-box { flex: 1; min-width: 300px; }
-        .detail-img-box img { width: 100%; border-radius: 20px; border: 2px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .detail-img-box img { width: 100%; border-radius: 20px; border: 2px solid #333; }
         .detail-info { flex: 1; min-width: 300px; }
         .detail-info h1 { font-size: 34px; margin-bottom: 15px; font-family: 'Playfair Display', serif; }
         .detail-info .price-tag { font-size: 28px; color: var(--gold); font-weight: 700; margin-bottom: 20px; }
@@ -95,12 +89,11 @@
         .steps-list { list-style: none; margin: 20px 0; padding: 0; }
         .steps-list li { margin: 12px 0; display: flex; align-items: flex-start; gap: 10px; }
         .steps-list li::before { content: "🌿"; color: var(--green); font-size: 18px; }
-        .action-buttons { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
 
-        /* --- CART / CHECKOUT --- */
+        /* --- CART --- */
         .cart-page { max-width: 900px; margin: 40px auto; padding: 20px 5%; }
         .cart-item { display: flex; justify-content: space-between; padding: 15px; background: var(--dark-gray); border-radius: 10px; margin-bottom: 10px; border: 1px solid #333; }
-        .checkout-form input, .checkout-form textarea { width: 100%; padding: 14px; margin: 10px 0; background: #222; border: 1px solid #444; border-radius: 8px; color: white; outline: none; transition: 0.3s; }
+        .checkout-form input, .checkout-form textarea { width: 100%; padding: 14px; margin: 10px 0; background: #222; border: 1px solid #444; border-radius: 8px; color: white; outline: none; }
         .checkout-form input:focus, .checkout-form textarea:focus { border-color: var(--gold); }
         .checkout-row { display: flex; gap: 20px; }
         .pincode-area { background: var(--dark-gray); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid #333; }
@@ -109,11 +102,8 @@
         .pincode-area button:hover { background: var(--gold); color: black; }
         .delivery-msg { margin-top: 10px; font-weight: 600; display: none; }
 
-        /* --- FOOTER (Strict Global Footer) --- */
-        footer {
-            background: #0a0a0a; padding: 40px 5% 20px;
-            border-top: 2px solid var(--green); margin-top: 50px;
-        }
+        /* --- FOOTER --- */
+        footer { background: #0a0a0a; padding: 40px 5% 20px; border-top: 2px solid var(--green); margin-top: 50px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
         .footer-col h4 { color: var(--gold); margin-bottom: 15px; }
         .footer-col p, .footer-col a { color: #888; font-size: 13px; line-height: 1.8; text-decoration: none; display: block; }
@@ -125,20 +115,18 @@
         .modal-box h2 { text-align: center; margin-bottom: 25px; color: var(--gold); }
         .modal-box input { width: 100%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid #333; border-radius: 8px; color: white; }
         .modal-box button { width: 100%; padding: 12px; background: var(--green); border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .modal-box button:hover { background: var(--gold); color: black; }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #aaa; transition: 0.3s; }
-        .close-modal:hover { color: white; }
 
-        @media(max-width: 768px) { .hero h1 { font-size: 2.5rem; } .nav-links { display: none; } .checkout-row { flex-direction: column; gap: 0; } }
+        @media(max-width: 768px) { .hero h1 { font-size: 2.5rem; } .nav-links { display: none; } }
     </style>
 </head>
 <body>
 
     <!-- GLOBAL HEADER -->
     <header>
+        <!-- Replace logo.png with your actual file. If missing, it shows a placeholder logo -->
         <div class="logo-container" onclick="showPage('home')">
-            <!-- Place your logo.png here -->
-            <img src="logo.png" alt="PN Logo" class="logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'55\' height=\'55\'><circle cx=\'27.5\' cy=\'27.5\' r=\'27.5\' fill=\'%236B8E5A\'/><text x=\'27.5\' y=\'32\' font-family=\'Arial\' font-size=\'14\' fill=\'white\' text-anchor=\'middle\' font-weight=\'bold\'>PN</text></svg>'">
+            <img src="logo.png" alt="PN Logo" class="logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'><circle cx=\'30\' cy=\'30\' r=\'30\' fill=\'%236B8E5A\'/><text x=\'30\' y=\'32\' font-family=\'Arial\' font-size=\'18\' fill=\'white\' text-anchor=\'middle\'>PN</text></svg>'">
             <span class="brand-text">PN RISE</span>
         </div>
         
@@ -157,46 +145,19 @@
         </div>
     </header>
 
-    <!-- GLOBAL BODY (MAIN CONTENT) -->
+    <!-- MAIN BODY -->
     <main>
         
-        <!-- PAGE 1: HOME -->
+        <!-- PAGE: HOME -->
         <section id="home" class="page active">
-            <div class="hero">
+            <div class="hero" style="background: radial-gradient(circle at center, #1e2b23 0%, #121212 100%);">
                 <h1>Nature's Secret to<br><span>Radiant Skin</span></h1>
                 <p>Handcrafted with pure Beetroot, Neem, Turmeric & Rice. 100% Natural, Zero Chemicals. Embrace the PN RISE glow.</p>
                 <button class="auth-btn" style="padding: 15px 40px; font-size: 16px;" onclick="showPage('shop')">Explore Face Packs</button>
             </div>
-            
-            <div class="info-sections">
-                <h2 class="section-title">Why PN RISE?</h2>
-                <div class="grid-3">
-                    <div class="info-card">
-                        <h3>🌿 100% Natural</h3>
-                        <p>No artificial preservatives, colors, or fragrances. Just the pure power of herbs straight from nature.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>🧪 Handcrafted with Care</h3>
-                        <p>Made in small batches to retain the maximum potency of vitamins and antioxidants for your skin.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>🌟 Visible Results</h3>
-                        <p>Targets acne, dullness, and pigmentation naturally. See a glowing, healthy complexion in just 2 weeks.</p>
-                    </div>
-                </div>
-
-                <div style="margin-top: 50px; background: var(--dark-gray); padding: 30px; border-radius: 20px; border: 1px solid #333;">
-                    <h2 class="section-title" style="margin-bottom: 20px;">What Our Customers Say</h2>
-                    <div class="grid-3">
-                        <div class="testimonial-card">"My skin has never been this clear. The Beetroot pack gives such a beautiful natural flush!" <br> <strong>- Priya S.</strong></div>
-                        <div class="testimonial-card">"The Turmeric face pack faded my dark spots significantly. Highly recommend PN RISE." <br> <strong>- Ankit R.</strong></div>
-                        <div class="testimonial-card">"I love that it's chemical-free. The combo pack with Neem is perfect for my oily skin." <br> <strong>- Sneha M.</strong></div>
-                    </div>
-                </div>
-            </div>
         </section>
 
-        <!-- PAGE 2: SHOP -->
+        <!-- PAGE: SHOP -->
         <section id="shop" class="page">
             <div class="products-section">
                 <h2 class="section-title">Our Premium 80g Face Packs</h2>
@@ -205,15 +166,15 @@
                     <!-- PRODUCT 1: Combo -->
                     <div class="product-card" onclick="showDetail('combo')">
                         <div class="card-img-wrapper">
-                            <!-- Place your images: beetroot.jpg, neem.jpg, rice.jpg, or powder.jpg here. Uses fallback if missing. -->
-                            <img src="beetroot.jpg" alt="Combo Pack" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'280\'><rect width=\'300\' height=\'280\' fill=\'%23222\'/><text x=\'150\' y=\'120\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\' font-family=\'Arial\'>🌿 Combo Pack</text><text x=\'150\' y=\'150\' fill=\'%23aaa\' text-anchor=\'middle\' font-size=\'14\'>Beetroot + Neem + Rice</text></svg>'">
+                            <!-- Image files requested: beetroot.jpg, neem.jpg, rice.jpg. If missing, fallback text displays -->
+                            <img src="beetroot.jpg" alt="Combo Pack" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'280\'><rect width=\'300\' height=\'280\' fill=\'%23222\'/><text x=\'150\' y=\'120\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\'>🌿 Combo Pack</text><text x=\'150\' y=\'150\' fill=\'%23aaa\' text-anchor=\'middle\' font-size=\'14\'>Beetroot + Neem + Rice</text></svg>'">
                         </div>
                         <div class="card-body">
                             <h3>Herbal Trio Glow Pack</h3>
                             <p>Beetroot, Neem & Rice for acne control and glowing skin.</p>
                             <div class="price-row">
                                 <div><span class="price-india">₹ 599</span><span class="price-intl">₹ 1500</span></div>
-                                <button class="auth-btn" style="padding: 6px 15px; font-size: 12px;" onclick="event.stopPropagation(); addToCart('Herbal Trio Combo', 599)">Add</button>
+                                <button class="auth-btn add-btn" style="padding: 6px 15px; font-size: 12px;" onclick="event.stopPropagation(); addToCart('Herbal Trio Combo', 599)">Add</button>
                             </div>
                         </div>
                     </div>
@@ -221,15 +182,15 @@
                     <!-- PRODUCT 2: Turmeric -->
                     <div class="product-card" onclick="showDetail('turmeric')">
                         <div class="card-img-wrapper">
-                            <!-- Place your turmeric/powder image -->
-                            <img src="powder.jpg" alt="Turmeric Pack" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'280\'><rect width=\'300\' height=\'280\' fill=\'%23222\'/><text x=\'150\' y=\'120\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\' font-family=\'Arial\'>✨ Turmeric Pack</text><text x=\'150\' y=\'150\' fill=\'%23aaa\' text-anchor=\'middle\' font-size=\'14\'>Turmeric + Neem + Rice</text></svg>'">
+                            <!-- Image file requested: powder.jpg. If missing, fallback text displays -->
+                            <img src="powder.jpg" alt="Turmeric Pack" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'280\'><rect width=\'300\' height=\'280\' fill=\'%23222\'/><text x=\'150\' y=\'120\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\'>✨ Turmeric Pack</text><text x=\'150\' y=\'150\' fill=\'%23aaa\' text-anchor=\'middle\' font-size=\'14\'>Turmeric + Neem + Rice</text></svg>'">
                         </div>
                         <div class="card-body">
                             <h3>Turmeric & Neem Glow Pack</h3>
                             <p>Pure turmeric and neem to fade blemishes and brighten skin.</p>
                             <div class="price-row">
                                 <div><span class="price-india">₹ 499</span><span class="price-intl">₹ 1400</span></div>
-                                <button class="auth-btn" style="padding: 6px 15px; font-size: 12px;" onclick="event.stopPropagation(); addToCart('Turmeric Glow Pack', 499)">Add</button>
+                                <button class="auth-btn add-btn" style="padding: 6px 15px; font-size: 12px;" onclick="event.stopPropagation(); addToCart('Turmeric Glow Pack', 499)">Add</button>
                             </div>
                         </div>
                     </div>
@@ -237,15 +198,15 @@
                     <!-- PRODUCT 3: Beetroot -->
                     <div class="product-card" onclick="showDetail('beetroot')">
                         <div class="card-img-wrapper">
-                            <!-- Place your beetroot image -->
-                            <img src="beetroot.jpg" alt="Beetroot Pack" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'280\'><rect width=\'300\' height=\'280\' fill=\'%23222\'/><text x=\'150\' y=\'120\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\' font-family=\'Arial\'>❤️ Beetroot Pack</text><text x=\'150\' y=\'150\' fill=\'%23aaa\' text-anchor=\'middle\' font-size=\'14\'>Pure Beetroot + Rice</text></svg>'">
+                            <!-- Image file requested: beetroot.jpg. If missing, fallback text displays -->
+                            <img src="beetroot.jpg" alt="Beetroot Pack" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'280\'><rect width=\'300\' height=\'280\' fill=\'%23222\'/><text x=\'150\' y=\'120\' fill=\'%23d4af37\' text-anchor=\'middle\' font-size=\'18\'>❤️ Beetroot Pack</text><text x=\'150\' y=\'150\' fill=\'%23aaa\' text-anchor=\'middle\' font-size=\'14\'>Pure Beetroot + Rice</text></svg>'">
                         </div>
                         <div class="card-body">
                             <h3>Pure Beetroot Blush Pack</h3>
                             <p>Natural pink tint, deep hydration, and a natural glow.</p>
                             <div class="price-row">
                                 <div><span class="price-india">₹ 450</span><span class="price-intl">₹ 1200</span></div>
-                                <button class="auth-btn" style="padding: 6px 15px; font-size: 12px;" onclick="event.stopPropagation(); addToCart('Pure Beetroot Blush', 450)">Add</button>
+                                <button class="auth-btn add-btn" style="padding: 6px 15px; font-size: 12px;" onclick="event.stopPropagation(); addToCart('Pure Beetroot Blush', 450)">Add</button>
                             </div>
                         </div>
                     </div>
@@ -254,11 +215,11 @@
             </div>
         </section>
 
-        <!-- PAGE 3: DETAIL VIEW -->
+        <!-- PAGE: PRODUCT DETAIL -->
         <section id="detail" class="page">
             <div class="detail-container">
                 <div class="detail-img-box">
-                    <img id="detailImg" src="" alt="Product Detail">
+                    <img id="detailImg" src="" alt="Product Detail" style="min-height: 300px; background: #222;">
                 </div>
                 <div class="detail-info">
                     <h1 id="detailTitle">Product Name</h1>
@@ -266,10 +227,10 @@
                     
                     <div class="spec-box">
                         <strong>📋 Ingredients & Specifications:</strong><br>
-                        <span id="detailSpecs">Details loading...</span>
+                        <span id="detailSpecs" style="color:#bbb;">Details loading...</span>
                     </div>
 
-                    <h3>🧴 How to Apply:</h3>
+                    <h3 style="color:var(--gold);">🧴 How to Apply:</h3>
                     <ul class="steps-list" id="detailSteps">
                         <li>Take 1-2 tablespoons of powder in a clean bowl.</li>
                         <li>Add water, rose water, or milk to form a smooth, thick paste.</li>
@@ -280,14 +241,14 @@
                     </ul>
                     
                     <div class="action-buttons">
-                        <button class="auth-btn" style="padding: 12px 30px; font-size: 16px;" id="detailAddBtn">Add to Cart</button>
-                        <button class="auth-btn" style="background: transparent; border: 1px solid var(--green);" onclick="showPage('shop')">← Back to Shop</button>
+                        <button class="auth-btn" style="padding: 12px 30px; font-size: 16px; width:100%; max-width: 300px;" id="detailAddBtn">Add to Cart</button>
+                        <button class="auth-btn" style="background: transparent; border: 1px solid var(--green); width:100%; max-width: 200px; margin-top:10px;" onclick="showPage('shop')">← Back to Shop</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PAGE 4: CART & CHECKOUT -->
+        <!-- PAGE: CART & CHECKOUT -->
         <section id="cart" class="page">
             <div class="cart-page">
                 <h2 class="section-title">🛒 Your Cart & Checkout</h2>
@@ -309,12 +270,12 @@
                         <div id="deliveryMsgFail" class="delivery-msg" style="color: #ff3b30;">❌ Sorry, delivery not available to this pincode.</div>
                     </div>
 
-                    <!-- User Checkout Form -->
-                    <form class="checkout-form" onsubmit="event.preventDefault(); if(!isLoggedIn) { alert('Please Login before placing an order.'); openModal('login'); return; } alert('✅ Order Placed Successfully! We will contact you shortly via phone.'); cart=[]; renderCart();">
-                        <h3 style="margin-bottom: 15px;">Billing & Shipping Details</h3>
+                    <!-- Checkout Form -->
+                    <form class="checkout-form" onsubmit="event.preventDefault(); alert('✅ Order Placed Successfully! We will contact you shortly via phone.'); cart=[]; renderCart(); showPage('home');">
+                        <h3 style="margin-bottom: 15px; color:var(--gold);">Billing & Shipping Details</h3>
                         <div class="checkout-row">
-                            <input type="text" placeholder="Full Name" id="billingName" required>
-                            <input type="email" placeholder="Email Address" id="billingEmail" required>
+                            <input type="text" placeholder="Full Name" required>
+                            <input type="email" placeholder="Email Address" required>
                         </div>
                         <input type="tel" placeholder="Phone Number" required>
                         <textarea rows="3" placeholder="Full Delivery Address" required>Building: BLOCK- JANDAHA, W/O NARESH RAM, Village - Rampur Chaklala, PO- Jandaha, Vaishali, Bihar - 844505</textarea>
@@ -332,18 +293,12 @@
             <div class="footer-col">
                 <h4>PN RISE</h4>
                 <p style="color:#bbb;">Herbal Glow. Naturally You.</p>
-                <p style="margin-top: 10px; font-size: 12px;">Pure face packs crafted with the power of nature.</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <a onclick="showPage('home')">Home</a>
-                <a onclick="showPage('shop')">Shop All</a>
-                <a onclick="showPage('cart')">Cart</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <p>📞 +91-XXXX-XXXX</p>
-                <p>✉️ support@pnrise.in</p>
+                <a onclick="showPage('home')" style="cursor:pointer;">Home</a>
+                <a onclick="showPage('shop')" style="cursor:pointer;">Shop All</a>
+                <a onclick="showPage('cart')" style="cursor:pointer;">Cart</a>
             </div>
             <div class="footer-col">
                 <h4>Our Address</h4>
@@ -358,7 +313,7 @@
         </div>
     </footer>
 
-    <!-- AUTH MODALS (Login / Signup) -->
+    <!-- LOGIN / SIGNUP MODALS -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
@@ -369,6 +324,7 @@
             <p style="text-align:center; margin-top:15px; color:#aaa;">New here? <span style="color:var(--gold); cursor:pointer; font-weight:bold;" onclick="closeModal('loginModal'); openModal('signup')">Create Account</span></p>
         </div>
     </div>
+
     <div class="modal-overlay" id="signupModal">
         <div class="modal-box">
             <span class="close-modal" onclick="closeModal('signupModal')">&times;</span>
@@ -380,8 +336,7 @@
         </div>
     </div>
 
-
-    <!-- --- WEBSITE LOGIC JAVASCRIPT --- -->
+    <!-- --- JAVASCRIPT --- -->
     <script>
         // --- DATA STORE ---
         const productData = {
@@ -391,7 +346,6 @@
         };
         
         let cart = [];
-        let currentProduct = null;
         let isLoggedIn = false;
         let loggedInUser = "";
 
@@ -402,12 +356,11 @@
             if(pageId === 'cart') renderCart();
         }
 
-        // --- AUTH SYSTEM (LOCALSTORAGE) ---
+        // --- AUTH SYSTEM ---
         function handleAuthClick() {
             if(isLoggedIn) {
-                // Logout logic
-                isLoggedIn = false;
-                loggedInUser = "";
+                // Logout
+                isLoggedIn = false; loggedInUser = "";
                 localStorage.removeItem('pn_user');
                 document.getElementById('userGreeting').style.display = 'none';
                 document.getElementById('authBtn').innerText = 'Login';
@@ -421,10 +374,10 @@
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPass').value;
             if(email && pass) {
-                // Fake login validation (stores user)
                 const storedUser = localStorage.getItem('pn_user');
                 if(storedUser) {
                     const userData = JSON.parse(storedUser);
+                    // Verify credentials match exactly
                     if(userData.email === email && userData.pass === pass) {
                         isLoggedIn = true;
                         loggedInUser = userData.name;
@@ -433,7 +386,7 @@
                         return;
                     }
                 }
-                alert("Invalid credentials. (Hint: Sign up first!)");
+                alert("Invalid credentials. Please check your email/password or Sign Up first!");
             } else {
                 alert("Please fill in all fields.");
             }
@@ -446,59 +399,61 @@
             if(name && email && pass) {
                 const userObj = { name, email, pass };
                 localStorage.setItem('pn_user', JSON.stringify(userObj));
-                alert("Account created successfully! Please login.");
+                alert("Account created successfully! Please login now.");
                 closeModal('signupModal');
-                openModal('login');
+                openModal('login'); // Auto-open login for user convenience
             } else {
                 alert("Please fill all fields.");
             }
         }
 
         function updateUIForUser() {
-            isLoggedIn = true;
             document.getElementById('userGreeting').innerText = `Welcome, ${loggedInUser}`;
             document.getElementById('userGreeting').style.display = 'block';
             document.getElementById('authBtn').innerText = 'Logout';
-            closeModal('loginModal');
         }
 
-        // Check if user was logged in from last session
+        // Check persistent login on load
         window.onload = function() {
             const stored = localStorage.getItem('pn_user');
             if(stored) {
                 const data = JSON.parse(stored);
                 loggedInUser = data.name;
+                isLoggedIn = true; // Auto-login for the session
                 updateUIForUser();
             }
         }
 
-        // --- MODAL CONTROLS ---
+        // --- MODALS ---
         function openModal(type) {
             document.getElementById('loginModal').style.display = (type === 'login') ? 'flex' : 'none';
             document.getElementById('signupModal').style.display = (type === 'signup') ? 'flex' : 'none';
         }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // --- PRODUCT DETAIL LOGIC ---
+        // --- PRODUCTS ---
         function showDetail(id) {
-            const p = productData[id];
-            if(!p) return;
-            currentProduct = id;
+            const p = productData[id]; if(!p) return;
             document.getElementById('detailImg').src = p.img;
             document.getElementById('detailTitle').innerText = p.title;
             document.getElementById('detailPrice').innerText = `₹ ${p.price}`;
             document.getElementById('detailSpecs').innerText = p.specs;
-            document.getElementById('detailAddBtn').onclick = () => {
-                addToCart(p.title, p.price);
-                alert(`${p.title} added to cart!`);
-            };
+            document.getElementById('detailAddBtn').onclick = () => addToCart(p.title, p.price);
             showPage('detail');
         }
 
-        // --- CART LOGIC ---
+        // --- CART (Login Check Added) ---
         function addToCart(name, price) {
+            // CRITICAL FIX: Strict Login Check before adding to cart
+            if(!isLoggedIn) {
+                alert("⚠️ Please Login or Sign Up first to add items to your cart!");
+                openModal('login');
+                return false;
+            }
+            
             cart.push({ name, price });
             document.getElementById('cartCount').innerText = cart.length;
+            alert(`${name} added to cart!`);
             renderCart();
         }
 
@@ -512,44 +467,30 @@
                 return;
             }
             
-            let html = '';
-            let total = 0;
+            let html = ''; let total = 0;
             cart.forEach((item, index) => {
                 total += item.price;
-                html += `<div class="cart-item">
-                            <span>${index+1}. ${item.name}</span>
-                            <span style="color:var(--gold); font-weight:600;">₹${item.price}</span>
-                        </div>`;
+                html += `<div class="cart-item"><span>${index+1}. ${item.name}</span><span style="color:var(--gold);">₹${item.price}</span></div>`;
             });
-            html += `<div class="cart-item" style="border-top:2px solid var(--gold); border-bottom:2px solid var(--gold); font-weight:700; background:#222;">
-                        <span>TOTAL</span>
-                        <span>₹${total}</span>
-                    </div>`;
+            html += `<div class="cart-item" style="border-top:2px solid var(--gold); font-weight:700;"><span>TOTAL</span><span>₹${total}</span></div>`;
             container.innerHTML = html;
             checkout.style.display = 'block';
         }
 
-        // --- PINCODE AVAILABILITY CHECKER ---
+        // --- PINCODE CHECKER ---
         function checkPincode() {
             const input = document.getElementById('pincodeInput').value.trim();
             const msgSuccess = document.getElementById('deliveryMsg');
             const msgFail = document.getElementById('deliveryMsgFail');
+            const validPincodes = ['844505', '800001', '110001', '400001', '700001', '600001', '500001', '560001'];
             
-            // Validating for Bihar (844505) and other top Metro codes
-            const validPincodes = ['844505', '800001', '110001', '400001', '700001', '600001', '500001', '560001', '380001', '302001']; 
-            
-            if(!input) {
-                alert("Please enter a Pincode.");
-                return;
-            }
+            if(!input) { alert("Please enter a Pincode."); return; }
 
             if(validPincodes.includes(input)) {
-                msgSuccess.style.display = 'block';
-                msgFail.style.display = 'none';
-                msgSuccess.innerText = '✅ Delivery available to this location! (3-5 business days via BlueDart/SpeedPost)';
+                msgSuccess.style.display = 'block'; msgFail.style.display = 'none';
+                msgSuccess.innerText = '✅ Delivery available to this location! (3-5 business days)';
             } else {
-                msgFail.style.display = 'block';
-                msgSuccess.style.display = 'none';
+                msgFail.style.display = 'block'; msgSuccess.style.display = 'none';
                 msgFail.innerText = '❌ Sorry, we currently do not deliver to this pincode.';
             }
         }
