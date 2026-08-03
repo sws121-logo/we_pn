@@ -3,107 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PN RISE - Premium Herbal Skincare</title>
+    <title>PN RISE - Premium Natural Herbal Skincare</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
-        :root { --green: #6B8E5A; --black: #121212; --dark-gray: #1e1e1e; --gold: #d4af37; --danger: #ff4757; }
+        /* --- ROOT & RESET --- */
+        :root { 
+            --green: #6B8E5A; --dark-green: #3d5431; --black: #0f0f0f; --dark-gray: #181818; 
+            --card-bg: #1f1f1f; --gold: #d4af37; --text-muted: #888; --danger: #ff4757;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--black); color: #ffffff; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: var(--black); color: #e0e0e0; overflow-x: hidden; scroll-behavior: smooth; }
+        a { text-decoration: none; color: inherit; }
         
+        ::-webkit-scrollbar { width: 8px; } 
+        ::-webkit-scrollbar-track { background: var(--black); } 
+        ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 10px; }
+
         /* --- HEADER --- */
         header {
-            background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(10px);
-            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #333;
-            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(15, 15, 15, 0.85); backdrop-filter: blur(12px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
         }
         .logo-container { display: flex; align-items: center; gap: 15px; cursor: pointer; }
-        .logo-img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); background: #222; display: flex; justify-content: center; align-items: center; font-weight: bold; color: var(--gold); font-size: 20px;}
-        .brand-text { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--green); }
+        .logo-img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold); background: #222; display: flex; justify-content: center; align-items: center; font-weight: 700; color: var(--gold); font-size: 22px; }
+        .brand-text { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--green); letter-spacing: 1px; font-weight: 600; }
         
-        .nav-links { display: flex; align-items: center; gap: 25px; }
-        .nav-links a { color: #ffffff; font-size: 14px; font-weight: 500; transition: 0.3s; cursor: pointer; text-transform: uppercase; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: #ffffff; font-size: 14px; font-weight: 500; transition: 0.3s; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
         .nav-links a:hover, .nav-links a.active { color: var(--gold); }
         
         .user-controls { display: flex; align-items: center; gap: 20px; }
-        .cart-icon { position: relative; cursor: pointer; font-size: 20px; }
+        .cart-icon { position: relative; cursor: pointer; font-size: 22px; }
         .cart-count { position: absolute; top: -8px; right: -10px; background: var(--gold); color: #000; border-radius: 50%; padding: 2px 7px; font-size: 11px; font-weight: 800; }
         .auth-btn {
-            background: transparent; border: 1px solid var(--green); padding: 8px 22px; border-radius: 30px; 
-            color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; transition: 0.3s;
+            background: transparent; border: 1.5px solid var(--green); padding: 8px 22px; border-radius: 30px; 
+            color: #fff; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.3s;
         }
-        .auth-btn:hover { background: var(--green); transform: scale(1.05); }
+        .auth-btn:hover { background: var(--green); transform: scale(1.05); color: #fff; }
 
-        /* --- PAGES --- */
+        /* --- MAIN ANIMATIONS --- */
         main { margin-top: 80px; flex: 1; }
-        .page { display: none; animation: fadeUp 0.6s ease; }
-        .page.active { display: block; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- HOME & SHOP --- */
-        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1e2b23 0%, #121212 100%); padding: 0 5%; }
-        .hero h1 { font-size: 4rem; font-family: 'Playfair Display', serif; margin-bottom: 20px; }
-        .hero h1 span { color: var(--green); }
-        .hero p { max-width: 600px; opacity: 0.8; margin-bottom: 30px; font-size: 1.1rem; }
-        .cta-btn { background: var(--green); border: none; padding: 15px 40px; border-radius: 50px; color: white; font-weight: 700; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .cta-btn:hover { transform: scale(1.05); }
+        .page { display: none; opacity: 0; transition: opacity 0.5s ease; }
+        .page.active { display: block; opacity: 1; animation: fadeSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        @keyframes fadeSlide { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
         
-        .section-title { text-align: center; font-size: 2.5rem; font-family: 'Playfair Display', serif; color: var(--gold); margin: 40px 0; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 0 5% 50px; }
-        .product-card { background: var(--dark-gray); border-radius: 20px; overflow: hidden; border: 1px solid #333; transition: 0.4s; cursor: pointer; position: relative; }
-        .product-card:hover { transform: translateY(-10px); border-color: var(--green); }
-        .card-img { height: 260px; background: #222; display: flex; justify-content: center; align-items: center; font-size: 60px; border-bottom: 2px solid #333; }
-        .stock-warning { position: absolute; top: 10px; right: 10px; background: var(--danger); color: white; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        .card-body { padding: 20px; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; border-top: 1px solid #333; padding-top: 15px; }
-        .price-tag { color: var(--gold); font-weight: 700; font-size: 20px; }
-        .small-add-btn { padding:5px 15px; font-size:12px; }
+        .content-block { padding: 80px 5%; max-width: 1400px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.8rem; font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 15px; }
+        .section-sub { text-align: center; color: var(--text-muted); max-width: 700px; margin: 0 auto 50px; font-size: 16px; line-height: 1.6; }
+
+        /* --- HOME PAGE HERO --- */
+        .hero {
+            min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            position: relative; overflow: hidden; background: radial-gradient(circle at 50% 100%, #1e2b23 0%, #0f0f0f 70%);
+        }
+        .hero h1 { font-size: 4.5rem; font-family: 'Playfair Display', serif; margin-bottom: 20px; line-height: 1.2; }
+        .hero h1 span { color: var(--green); font-style: italic; }
+        .hero p { max-width: 650px; opacity: 0.8; margin-bottom: 40px; font-size: 1.1rem; line-height: 1.6; }
+        .cta-btn { background: var(--green); border: none; padding: 16px 45px; border-radius: 50px; color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(107, 142, 90, 0.4); }
+        .cta-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(107, 142, 90, 0.6); }
+
+        /* --- HOME CONTENT GRIDS --- */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card { background: var(--card-bg); padding: 35px; border-radius: 20px; border: 1px solid #2a2a2a; transition: 0.4s; text-align: center; }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--green); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .feature-icon { font-size: 40px; color: var(--gold); margin-bottom: 15px; }
+        
+        .ingredient-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; }
+        .ingredient-card { background: var(--dark-gray); padding: 25px; border-radius: 15px; text-align: center; border-left: 4px solid var(--gold); }
+        
+        .testimonial-card { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid #333; position: relative; margin-top: 20px; }
+        .testimonial-card::before { content: '"'; font-size: 60px; color: var(--gold); opacity: 0.3; position: absolute; top: 0; left: 15px; font-family: serif; }
+
+        /* --- SHOP PAGE --- */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; padding: 20px 0; }
+        .product-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 1px solid #2a2a2a; transition: 0.4s; cursor: pointer; position: relative; }
+        .product-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+        .card-img { height: 300px; background: #1a1a1a; display: flex; justify-content: center; align-items: center; font-size: 80px; border-bottom: 2px solid #2a2a2a; transition: 0.5s; }
+        .product-card:hover .card-img { transform: scale(1.05); }
+        .card-body { padding: 25px; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; border-top: 1px solid #2a2a2a; padding-top: 20px; }
+        .price-tag { color: var(--gold); font-weight: 700; font-size: 24px; }
 
         /* --- DETAIL PAGE --- */
-        .detail-container { max-width: 1200px; margin: 40px auto; padding: 20px; display: flex; gap: 50px; flex-wrap: wrap; }
-        .detail-img-box { flex: 1; min-width: 300px; }
-        .detail-img-box img { width: 100%; border-radius: 20px; border: 2px solid #333; }
-        .detail-info { flex: 1; min-width: 300px; }
-        .detail-info h1 { font-size: 34px; font-family: 'Playfair Display', serif; margin-bottom: 15px; }
-        .detail-price-row { display: flex; gap: 20px; margin-bottom: 20px; align-items: baseline; }
-        .detail-price { font-size: 28px; color: var(--gold); font-weight: 700; }
-        .detail-old-price { color: #888; text-decoration: line-through; }
-        .spec-box { background: #222; padding: 20px; border-radius: 12px; margin: 20px 0; border-left: 4px solid var(--gold); line-height: 1.6; }
-        
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 40px 0; }
+        .detail-img-box img { width: 100%; border-radius: 25px; border: 1px solid #2a2a2a; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .detail-specs { background: var(--card-bg); padding: 25px; border-radius: 15px; border-left: 5px solid var(--gold); margin: 20px 0; line-height: 1.8; }
+        .how-to-steps { margin: 20px 0; list-style: none; }
+        .how-to-steps li { padding: 12px 0; border-bottom: 1px dashed #333; display: flex; align-items: center; gap: 15px; }
+        .how-to-steps li::before { content: '✓'; color: var(--green); font-weight: bold; font-size: 18px; background: #222; border-radius: 50%; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; }
+
         /* --- CART & CHECKOUT --- */
-        .cart-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
-        .cart-item-row { display: flex; justify-content: space-between; background: var(--dark-gray); padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #333; }
-        .checkout-box { background: var(--dark-gray); padding: 30px; border-radius: 20px; border: 1px solid #333; margin-top: 30px; display: none; }
-        .checkout-box input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444; border-radius: 8px; color: white; }
-        .trust-badge { display: flex; gap: 20px; justify-content: center; margin: 20px 0; color: #888; font-size: 13px; }
+        .cart-container { max-width: 900px; margin: 40px auto; padding: 20px; }
+        .cart-item-row { display: flex; justify-content: space-between; background: var(--card-bg); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #2a2a2a; }
+        
+        .checkout-box { background: var(--dark-gray); padding: 30px; border-radius: 20px; border: 1px solid #2a2a2a; margin-top: 30px; display: none; }
+        .checkout-box input, .checkout-box textarea { width: 100%; padding: 15px; margin: 12px 0; background: #0f0f0f; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 14px; transition: 0.3s; }
+        .checkout-box input:focus { border-color: var(--gold); outline: none; }
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .payment-box { background: #0f0f0f; padding: 15px; border-radius: 10px; margin: 10px 0; border: 1px solid #222; display: flex; align-items: center; gap: 15px; }
+        .payment-box input[type="radio"] { width: auto; margin: 0; accent-color: var(--gold); }
 
         /* --- PROFILE & TRACKING --- */
         .profile-container { max-width: 900px; margin: 40px auto; padding: 20px; }
-        .order-card { background: var(--dark-gray); padding: 20px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
-        .order-id { color: var(--gold); font-weight: 700; }
-        .tracker-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(5px); }
-        .tracker-box { background: var(--dark-gray); width: 90%; max-width: 600px; padding: 40px; border-radius: 20px; border: 1px solid #444; position: relative; }
-        .track-steps { display: flex; justify-content: space-between; position: relative; margin: 30px 0; }
+        .order-card { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid #2a2a2a; margin-bottom: 20px; }
+        .tracker-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(8px); }
+        .tracker-box { background: var(--dark-gray); width: 90%; max-width: 600px; padding: 40px; border-radius: 20px; border: 1px solid #333; position: relative; }
+        .track-steps { display: flex; justify-content: space-between; position: relative; margin: 40px 0; }
         .track-steps::before { content: ''; position: absolute; top: 15px; left: 0; width: 100%; height: 3px; background: #333; z-index: 1; }
         .step { position: relative; z-index: 2; text-align: center; width: 25%; }
-        .step-circle { width: 35px; height: 35px; border-radius: 50%; background: #333; border: 3px solid #333; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .step.active .step-circle { background: var(--green); border-color: var(--green); box-shadow: 0 0 15px rgba(107, 142, 90, 0.5); }
-        .step-text { font-size: 12px; color: #888; }
-        .step.active .step-text { color: white; font-weight: 600; }
+        .step-circle { width: 35px; height: 35px; border-radius: 50%; background: #222; border: 3px solid #222; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .step.active .step-circle { background: var(--green); border-color: var(--green); box-shadow: 0 0 20px rgba(107, 142, 90, 0.4); }
 
-        /* --- MODALS & FOOTER --- */
+        /* --- MODALS --- */
         .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1500; display:none; justify-content:center; align-items:center; }
-        .modal-box { background: var(--dark-gray); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid #444; position: relative; }
-        .modal-box input { width: 100%; padding: 12px; margin: 8px 0; background: #111; border: 1px solid #333; border-radius: 8px; color: white; }
-        .modal-box button { width: 100%; padding: 12px; background: var(--green); border: none; border-radius: 8px; color: white; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #aaa; }
-        footer { background: #0a0a0a; padding: 40px 5% 20px; border-top: 2px solid var(--green); margin-top: 50px; text-align: center; color: #888; font-size: 13px; line-height: 2; }
+        .modal-box { background: var(--dark-gray); padding: 40px; border-radius: 20px; width: 90%; max-width: 420px; border: 1px solid #333; }
+        .modal-box input { width: 100%; padding: 12px; margin: 10px 0; background: #0f0f0f; border: 1px solid #333; border-radius: 8px; color: #fff; }
+        .modal-box button { width: 100%; padding: 12px; background: var(--green); border: none; border-radius: 8px; color: #fff; font-weight: 700; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .close-modal { float: right; cursor: pointer; color: #888; font-size: 24px; transition: 0.3s; } .close-modal:hover { color: #fff; }
 
-        @media(max-width: 768px) { .hero h1 { font-size: 2.5rem; } .nav-links { display: none; } }
+        /* --- FOOTER --- */
+        footer { background: #0a0a0a; padding: 60px 5% 20px; border-top: 2px solid var(--green); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 40px; }
+        .footer-col h4 { color: var(--gold); margin-bottom: 20px; font-size: 18px; }
+        .footer-col p, .footer-col a { color: #888; font-size: 14px; line-height: 2.2; display: block; }
+        .footer-col a:hover { color: var(--gold); }
+        .footer-bottom { border-top: 1px solid #222; padding-top: 20px; text-align: center; color: #555; font-size: 13px; }
+
+        @media(max-width: 900px) { 
+            .hero h1 { font-size: 2.8rem; } .nav-links { display: none; } 
+            .detail-grid { grid-template-columns: 1fr; } .row-2 { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -117,8 +152,8 @@
         <div class="nav-links">
             <a class="active" onclick="showPage('home')">Home</a>
             <a onclick="showPage('shop')">Shop</a>
-            <a onclick="showPage('cart')"><i class="fas fa-shopping-cart"></i></a>
-            <a onclick="showPage('profile')"><i class="fas fa-user"></i></a>
+            <a onclick="showPage('cart')"><i class="fas fa-shopping-cart"></i> Cart</a>
+            <a onclick="showPage('profile')"><i class="fas fa-user"></i> Profile</a>
         </div>
         <div class="user-controls">
             <div class="cart-icon" onclick="showPage('cart')">
@@ -129,70 +164,119 @@
     </header>
 
     <main>
-        <!-- HOME -->
+        <!-- === PAGE: HOME === -->
         <section id="home" class="page active">
             <div class="hero">
-                <h1>Nature's Secret to<br><span>Radiant Skin</span></h1>
-                <p>Handcrafted with pure Beetroot, Neem, Turmeric & Rice. 100% Natural. Zero Chemicals.</p>
-                <button class="cta-btn" onclick="showPage('shop')">Shop Natural Packs</button>
+                <h1>Ancient Ayurveda,<br><span>Modern Radiance</span></h1>
+                <p>Handcrafted with pure Beetroot, Neem, Turmeric & Rice. 100% Natural. Zero Chemicals. Reveal your skin's true glow with the power of herbal traditions.</p>
+                <button class="cta-btn" onclick="showPage('shop')">Explore Face Packs</button>
             </div>
-        </section>
 
-        <!-- SHOP -->
-        <section id="shop" class="page">
-            <h2 class="section-title">Our Signature Face Packs</h2>
-            <div class="product-grid" id="shopGrid"></div>
-        </section>
+            <div class="content-block">
+                <h2 class="section-title">Why Choose PN RISE?</h2>
+                <p class="section-sub">We combine age-old Ayurvedic recipes with modern hygiene standards to bring you skincare that is safe, effective, and pure.</p>
+                <div class="grid-3">
+                    <div class="feature-card"><div class="feature-icon"><i class="fas fa-leaf"></i></div><h3>100% Natural Ingredients</h3><p style="color:#888; font-size:14px; line-height:1.6;">Sourced directly from local farms. No artificial colors, fragrances, or harmful preservatives.</p></div>
+                    <div class="feature-card"><div class="feature-icon"><i class="fas fa-hand-sparkles"></i></div><h3>Handcrafted in Small Batches</h3><p style="color:#888; font-size:14px; line-height:1.6;">Every pack is freshly ground to retain maximum vitamins, minerals, and antioxidant potency.</p></div>
+                    <div class="feature-card"><div class="feature-icon"><i class="fas fa-seedling"></i></div><h3>Zero Chemicals</h3><p style="color:#888; font-size:14px; line-height:1.6;">Our philosophy is simple: If you can't eat it, we don't put it on your skin. Safe for all skin types.</p></div>
+                </div>
+            </div>
 
-        <!-- DETAIL -->
-        <section id="detail" class="page">
-            <div class="detail-container">
-                <div class="detail-img-box"><img id="detailImg" src="" alt="Product"></div>
-                <div class="detail-info">
-                    <h1 id="detailTitle">Product Name</h1>
-                    <div class="detail-price-row">
-                        <span class="detail-price" id="detailPrice">₹ 599</span>
-                        <span class="detail-old-price" id="detailOldPrice">₹ 799</span>
-                    </div>
-                    <div class="spec-box" id="detailSpecs"></div>
-                    <button class="cta-btn" style="width:100%; max-width:300px;" id="detailAddBtn">Add to Cart</button>
+            <div class="content-block" style="border-top:1px solid #222;">
+                <h2 class="section-title">Our Key Ingredients</h2>
+                <p class="section-sub">The secret to glowing skin lies in the purity of nature. Here is what goes into your pack.</p>
+                <div class="ingredient-grid">
+                    <div class="ingredient-card"><h3 style="color:#c0414a;">❤️ Beetroot</h3><p style="color:#888; font-size:13px;">Rich in Vitamin C and iron. Gives a natural pink tint and boosts blood circulation.</p></div>
+                    <div class="ingredient-card"><h3 style="color:var(--green);">🌿 Neem</h3><p style="color:#888; font-size:13px;">Powerful antibacterial properties. Fights acne, soothes redness, and purifies pores.</p></div>
+                    <div class="ingredient-card"><h3 style="color:#d4af37;">✨ Turmeric</h3><p style="color:#888; font-size:13px;">Anti-inflammatory and antioxidant powerhouse. Brightens dullness and fades blemishes.</p></div>
+                    <div class="ingredient-card"><h3 style="color:#fff;">🌾 Rice Flour</h3><p style="color:#888; font-size:13px;">Gently exfoliates dead skin cells, absorbs excess oil, and leaves skin incredibly soft.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- PROFILE -->
+        <!-- === PAGE: SHOP === -->
+        <section id="shop" class="page">
+            <div class="content-block">
+                <h2 class="section-title">Our Signature 80g Face Packs</h2>
+                <p class="section-sub">Explore our curated collection. Each pack is a perfect blend of tradition and purity. Free shipping on all orders!</p>
+                <div class="product-grid" id="shopGrid"></div>
+            </div>
+        </section>
+
+        <!-- === PAGE: DETAIL === -->
+        <section id="detail" class="page">
+            <div class="content-block">
+                <div class="detail-grid">
+                    <div class="detail-img-box">
+                        <img id="detailImg" src="" alt="Product">
+                    </div>
+                    <div>
+                        <h1 id="detailTitle" style="font-family:'Playfair Display', serif; font-size:32px; margin-bottom:10px;">Product Name</h1>
+                        <div style="display:flex; gap:20px; align-items:baseline; margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:15px;">
+                            <span style="font-size:28px; color:var(--gold); font-weight:700;" id="detailPrice">₹ 599</span>
+                            <span style="color:#888; text-decoration:line-through;" id="detailOldPrice">₹ 799</span>
+                            <span style="background:var(--green); color:#fff; padding:3px 10px; border-radius:20px; font-size:12px;">Save 25%</span>
+                        </div>
+                        
+                        <div class="detail-specs">
+                            <h4 style="color:var(--gold); margin-bottom:10px;">Detailed Specifications</h4>
+                            <div id="detailSpecs" style="color:#bbb; font-size:15px; line-height:1.8;"></div>
+                        </div>
+
+                        <h4 style="color:var(--gold); margin-top:25px;">How to Apply for Best Results:</h4>
+                        <ul class="how-to-steps">
+                            <li>Mix 1-2 tablespoons of the powder with pure rose water or plain water.</li>
+                            <li>Apply an even, thick layer over a cleansed face and neck.</li>
+                            <li>Let it sit for 15-20 minutes until it feels semi-dry.</li>
+                            <li>Wash off gently with lukewarm water and pat dry.</li>
+                            <li>Follow up with your favorite moisturizer. Use 2-3 times a week.</li>
+                        </ul>
+                        
+                        <button class="cta-btn" style="width:100%; margin-top:25px;" id="detailAddBtn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === PAGE: PROFILE === -->
         <section id="profile" class="page">
             <div class="profile-container">
-                <h2 class="section-title">My Account</h2>
-                <div style="background:var(--dark-gray); padding:20px; border-radius:15px; border:1px solid #333; margin-bottom:20px;">
-                    <h3 style="color:var(--gold);">User Details</h3>
-                    <p id="profileName" style="margin-top:10px;">Name: <span style="color:#fff;">Guest</span></p>
-                    <p id="profileEmail">Email: <span style="color:#fff;">Not logged in</span></p>
+                <h2 class="section-title" style="text-align:left;">My Account Dashboard</h2>
+                <div style="background:var(--card-bg); padding:20px 25px; border-radius:15px; border:1px solid #2a2a2a; margin-bottom:30px;">
+                    <h3 style="color:var(--gold);">Personal Information</h3>
+                    <p id="profileName" style="margin-top:10px; font-size:15px;">Name: <span style="color:#fff; font-weight:600;">Guest User</span></p>
+                    <p id="profileEmail" style="font-size:15px;">Email: <span style="color:#888;">Not Logged In</span></p>
                 </div>
-                <h3 style="color:var(--gold); margin-bottom:20px;">📦 My Order History</h3>
+                <h3 style="color:var(--gold); margin-bottom:20px; border-bottom:2px solid #333; padding-bottom:10px;">📦 Recent Order History & Tracking</h3>
                 <div id="orderList"></div>
             </div>
         </section>
 
-        <!-- CART & CHECKOUT -->
+        <!-- === PAGE: CART === -->
         <section id="cart" class="page">
             <div class="cart-container">
-                <h2 class="section-title" style="margin-top:0;">Your Cart</h2>
+                <h2 class="section-title" style="text-align:left; margin-top:0;">Shopping Cart</h2>
                 <div id="cartItems"></div>
                 
                 <div class="checkout-box" id="checkoutSection">
-                    <h3 style="color:var(--gold); margin-bottom:15px;">Shipping Details</h3>
-                    <input type="text" id="chkName" placeholder="Full Name *">
-                    <input type="tel" id="chkPhone" placeholder="Phone Number *">
-                    <input type="text" id="chkPincode" placeholder="Pincode *">
-                    <input type="text" id="chkAddress" placeholder="Full Address (House, Street, Area) *">
-                    
-                    <div class="trust-badge">
-                        <span><i class="fas fa-lock"></i> Secure Checkout</span>
-                        <span><i class="fas fa-truck"></i> Free Delivery</span>
-                        <span><i class="fas fa-undo"></i> Easy Returns</span>
+                    <h3 style="color:var(--gold); margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:10px;">1. Delivery Address & Contact</h3>
+                    <div class="row-2">
+                        <input type="text" id="chkName" placeholder="Full Name *">
+                        <input type="tel" id="chkPhone" placeholder="Phone Number *">
                     </div>
-                    <button class="cta-btn" style="width:100%;" onclick="placeOrder()">Place Order (Cash on Delivery)</button>
+                    <div class="row-2">
+                        <input type="text" id="chkPincode" placeholder="Pincode *">
+                        <input type="text" id="chkCity" placeholder="City / Town *">
+                    </div>
+                    <textarea id="chkAddress" rows="3" placeholder="Full Address (House No., Street, Landmark) *"></textarea>
+
+                    <h3 style="color:var(--gold); margin:20px 0; border-bottom:1px solid #333; padding-bottom:10px;">2. Payment Method</h3>
+                    <div class="payment-box"><input type="radio" name="pay" checked> <i class="fas fa-mobile-alt" style="color:var(--gold);"></i> <span>Cash on Delivery (Pay when you receive)</span></div>
+                    <div class="payment-box"><input type="radio" name="pay"> <i class="fab fa-google-pay" style="color:#4285F4;"></i> <span>UPI / PhonePe / GPay</span></div>
+                    <div class="payment-box"><input type="radio" name="pay"> <i class="fas fa-credit-card" style="color:#fff;"></i> <span>Debit / Credit Card</span></div>
+
+                    <button class="cta-btn" style="width:100%; margin-top:20px; padding:18px;" onclick="placeOrder()">Place Order (Cash on Delivery)</button>
+                    <p style="text-align:center; font-size:12px; color:#888; margin-top:15px;"><i class="fas fa-lock"></i> Your information is 100% secure.</p>
                 </div>
             </div>
         </section>
@@ -200,30 +284,45 @@
 
     <!-- FOOTER -->
     <footer>
-        <div style="margin-bottom:20px;">
-            <strong style="color:var(--gold); font-size:18px; font-family:'Playfair Display',serif;">PN RISE</strong><br>
-            Building: BLOCK- JANDAHA, W/O NARESH RAM<br>
-            Village - Rampur Chaklala, PO- Jandaha<br>
-            Vaishali, Bihar - 844505
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>PN RISE</h4>
+                <p style="color:#aaa; font-size:15px;">Herbal Glow. Naturally You.</p>
+                <p style="font-size:13px; margin-top:10px;">Trusted by 500+ customers across India.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a onclick="showPage('home')">Home</a>
+                <a onclick="showPage('shop')">All Face Packs</a>
+                <a onclick="showPage('profile')">Track My Order</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact & Address</h4>
+                <p><strong style="color:#bbb;">Corporate Office:</strong></p>
+                <p>BLOCK- JANDAHA, W/O NARESH RAM</p>
+                <p>Village - Rampur Chaklala, PO- Jandaha</p>
+                <p>Vaishali, Bihar - <strong>844505</strong></p>
+                <p style="margin-top:5px;">✉️ support@pnrise.in</p>
+            </div>
         </div>
-        <div>&copy; 2026 PN RISE. All Rights Reserved.</div>
+        <div class="footer-bottom">&copy; 2026 PN RISE. Crafted with 100% Natural Love.</div>
     </footer>
 
-    <!-- AUTH MODALS -->
+    <!-- MODALS -->
     <div class="modal-overlay" id="loginModal">
         <div class="modal-box">
             <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Login</h2>
+            <h2 style="color:var(--gold); text-align:center; font-family:'Playfair Display',serif;">Welcome Back</h2>
             <input type="text" id="loginUsername" placeholder="Email or Username">
             <input type="password" id="loginPass" placeholder="Password">
             <button onclick="handleLogin()">Login</button>
-            <p style="text-align:center; margin-top:15px; color:#aaa;">New? <span style="color:var(--gold); cursor:pointer;" onclick="closeModal('loginModal'); openModal('signup')">Sign Up</span></p>
+            <p style="text-align:center; margin-top:15px; color:#888; font-size:14px;">New here? <span style="color:var(--gold); cursor:pointer; font-weight:600;" onclick="closeModal('loginModal'); openModal('signup')">Create an Account</span></p>
         </div>
     </div>
     <div class="modal-overlay" id="signupModal">
         <div class="modal-box">
             <span class="close-modal" onclick="closeModal('signupModal')">&times;</span>
-            <h2>Sign Up</h2>
+            <h2 style="color:var(--gold); text-align:center; font-family:'Playfair Display',serif;">Join the Family</h2>
             <input type="text" id="signupName" placeholder="Full Name">
             <input type="email" id="signupEmail" placeholder="Email Address">
             <input type="text" id="signupUsername" placeholder="Choose a Username">
@@ -236,27 +335,28 @@
     <div class="tracker-overlay" id="trackerModal">
         <div class="tracker-box">
             <span class="close-modal" onclick="document.getElementById('trackerModal').style.display='none'">&times;</span>
-            <h2>Track Order</h2>
-            <p style="text-align:center; color:#aaa; margin-bottom:20px;" id="trackerId">Order #PN-2026-001</p>
+            <h2 style="font-family:'Playfair Display',serif; color:var(--gold); text-align:center;">Live Order Tracker</h2>
+            <p style="text-align:center; color:#888; margin-bottom:10px;" id="trackerId">Order #PN-2026-001</p>
             <div class="track-steps">
-                <div class="step active"><div class="step-circle">1</div><div class="step-text">Placed</div></div>
-                <div class="step active"><div class="step-circle">2</div><div class="step-text">Processed</div></div>
-                <div class="step"><div class="step-circle">3</div><div class="step-text">Dispatched</div></div>
-                <div class="step"><div class="step-circle">4</div><div class="step-text">Delivered</div></div>
+                <div class="step active"><div class="step-circle">1</div><div class="step-text" style="font-size:11px;">Order Placed</div></div>
+                <div class="step active"><div class="step-circle">2</div><div class="step-text" style="font-size:11px;">Processing</div></div>
+                <div class="step"><div class="step-circle">3</div><div class="step-text" style="font-size:11px;">Dispatched</div></div>
+                <div class="step"><div class="step-circle">4</div><div class="step-text" style="font-size:11px;">Delivered</div></div>
             </div>
+            <p style="text-align:center; color:#aaa; font-size:14px;">Your package is currently being prepared at our Bihar facility.</p>
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- --- COMPLETE JAVASCRIPT LOGIC --- -->
     <script>
-        // --- DATA ---
+        // --- DATA STORE ---
         const products = [
-            { id: 'combo', name: 'Herbal Trio Combo', price: 599, old: 799, img: 'combo', icon: '🌿', 
-              specs: '<strong>Ingredients:</strong> Beetroot, Neem, Rice.<br><strong>How to use:</strong> Mix with water, apply for 15 mins.<br><strong>India Price:</strong> ₹599 (80g)<br><strong>International:</strong> $18 (₹1500)' },
-            { id: 'turmeric', name: 'Turmeric Glow Pack', price: 499, old: 649, img: 'turmeric', icon: '✨', 
-              specs: '<strong>Ingredients:</strong> Turmeric, Neem, Rice.<br><strong>How to use:</strong> Mix with rose water, apply for 15 mins.<br><strong>India Price:</strong> ₹499 (80g)<br><strong>International:</strong> $15 (₹1200)' },
-            { id: 'beetroot', name: 'Beetroot Blush Pack', price: 450, old: 599, img: 'beetroot', icon: '❤️', 
-              specs: '<strong>Ingredients:</strong> Pure Beetroot, Rice.<br><strong>How to use:</strong> Mix with milk, apply for 15 mins.<br><strong>India Price:</strong> ₹450 (80g)<br><strong>International:</strong> $13 (₹1000)' }
+            { id: 'combo', name: 'Herbal Trio Glow Pack', price: 599, old: 799, icon: '🌿', 
+              specs: '<b>Ingredients:</b> Beetroot powder, Neem leaf extract, Rice flour.<br><b>Skin Type:</b> All (Oily & Acne-prone).<br><b>India Price:</b> ₹599 (80g) + Free Shipping.<br><b>International:</b> $18 (₹1500).' },
+            { id: 'turmeric', name: 'Turmeric & Neem Glow Pack', price: 499, old: 649, icon: '✨', 
+              specs: '<b>Ingredients:</b> Pure Turmeric root, Neem leaves, Rice flour.<br><b>Skin Type:</b> Sensitive & Pigmented.<br><b>India Price:</b> ₹499 (80g) + Free Shipping.<br><b>International:</b> $15 (₹1200).' },
+            { id: 'beetroot', name: 'Pure Beetroot Blush Pack', price: 450, old: 599, icon: '❤️', 
+              specs: '<b>Ingredients:</b> Pure Beetroot, Rice flour.<br><b>Skin Type:</b> Dry & Dull skin.<br><b>India Price:</b> ₹450 (80g) + Free Shipping.<br><b>International:</b> $13 (₹1000).' }
         ];
         
         let cart = [];
@@ -287,19 +387,19 @@
             const grid = document.getElementById('shopGrid');
             grid.innerHTML = '';
             products.forEach(p => {
-                // Random Stock Logic
                 const stock = Math.floor(Math.random() * 15) + 1;
-                const stockHtml = stock < 5 ? `<div class="stock-warning">🔥 Only ${stock} left!</div>` : '';
+                const stockHtml = stock < 6 ? `<div style="position:absolute; top:15px; right:15px; background:#ff4757; color:#fff; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:700; animation:pulse 1.5s infinite;">🔥 Only ${stock} left!</div>` : '';
                 
                 grid.innerHTML += `
                     <div class="product-card" onclick="showDetail('${p.id}')">
-                        <div class="card-img" style="background: linear-gradient(135deg, #222, #111);">${p.icon}</div>
+                        <div class="card-img" style="background: radial-gradient(circle at 30% 30%, #2a2a2a, #111);">${p.icon}</div>
                         ${stockHtml}
                         <div class="card-body">
-                            <h3>${p.name}</h3>
+                            <h3 style="font-size:20px;">${p.name}</h3>
+                            <p style="color:#888; font-size:14px; margin-top:5px;">Handcrafted for glowing skin.</p>
                             <div class="price-row">
-                                <span class="price-tag">₹ ${p.price}</span>
-                                <button class="auth-btn small-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">Add</button>
+                                <div><span class="price-tag">₹ ${p.price}</span> <span style="color:#888; text-decoration:line-through; font-size:14px;">₹ ${p.old}</span></div>
+                                <button class="auth-btn" style="padding:8px 20px; font-size:13px; background:var(--green);" onclick="event.stopPropagation(); addToCart('${p.id}')">Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -309,7 +409,7 @@
 
         function showDetail(id) {
             const p = products.find(x => x.id === id);
-            document.getElementById('detailImg').src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect width='400' height='400' fill='%23222'/><text x='200' y='180' fill='%23d4af37' text-anchor='middle' font-size='40'>${p.icon}</text><text x='200' y='220' fill='%23aaa' text-anchor='middle' font-size='18'>${p.name}</text></svg>`;
+            document.getElementById('detailImg').src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><rect width='600' height='600' fill='%231a1a1a'/><text x='300' y='250' fill='%23d4af37' text-anchor='middle' font-size='100'>${p.icon}</text><text x='300' y='330' fill='%23aaa' text-anchor='middle' font-size='24'>${p.name}</text><text x='300' y='370' fill='%23666' text-anchor='middle' font-size='16'>80g Pure Herbal Pack</text></svg>`;
             document.getElementById('detailTitle').innerText = p.name;
             document.getElementById('detailPrice').innerText = `₹ ${p.price}`;
             document.getElementById('detailOldPrice').innerText = `₹ ${p.old}`;
@@ -320,22 +420,16 @@
 
         // --- AUTH ---
         function handleAuthClick() {
-            if(isLoggedIn) {
-                isLoggedIn = false; currentUser = null; localStorage.removeItem('pn_user');
-                document.getElementById('authBtn').innerText = 'Login';
-                updateUI('Guest', 'Not logged in');
-                showPage('home');
-            } else {
-                openModal('login');
-            }
+            if(isLoggedIn) { isLoggedIn = false; currentUser = null; localStorage.removeItem('pn_user'); updateUI('Guest', 'Not logged in'); document.getElementById('authBtn').innerText = 'Login'; showPage('home'); } 
+            else { openModal('login'); }
         }
         function handleSignup() {
             const n = document.getElementById('signupName').value, e = document.getElementById('signupEmail').value, u = document.getElementById('signupUsername').value, p = document.getElementById('signupPass').value;
             if(n && e && u && p) {
                 localStorage.setItem('pn_user', JSON.stringify({name:n, email:e, username:u, pass:p}));
-                alert("Account created! Please login.");
+                alert("Account created! Welcome to PN RISE. Please login.");
                 closeModal('signupModal'); openModal('login');
-            } else alert("Fill all fields.");
+            } else alert("Please fill in all fields.");
         }
         function handleLogin() {
             const input = document.getElementById('loginUsername').value, pass = document.getElementById('loginPass').value;
@@ -343,29 +437,25 @@
             if(stored) {
                 const u = JSON.parse(stored);
                 if((u.email === input || u.username === input) && u.pass === pass) {
-                    isLoggedIn = true; currentUser = u;
-                    updateUI(u.name, u.email);
-                    closeModal('loginModal'); showPage('home');
-                    return;
+                    isLoggedIn = true; currentUser = u; updateUI(u.name, u.email); closeModal('loginModal'); showPage('home'); return;
                 }
             }
-            alert("Invalid credentials. Please Sign Up first.");
+            alert("Invalid credentials. Please check your email/username.");
         }
         function updateUI(name, email) {
             document.getElementById('authBtn').innerText = isLoggedIn ? 'Logout' : 'Login';
-            document.getElementById('profileName').innerHTML = `Name: <span style="color:#fff;">${name}</span>`;
-            document.getElementById('profileEmail').innerHTML = `Email: <span style="color:#fff;">${email}</span>`;
+            document.getElementById('profileName').innerHTML = `Name: <span style="color:#fff; font-weight:600;">${name}</span>`;
+            document.getElementById('profileEmail').innerHTML = `Email: <span style="color:#888;">${email}</span>`;
         }
         function openModal(type) { document.getElementById('loginModal').style.display = (type==='login')?'flex':'none'; document.getElementById('signupModal').style.display = (type==='signup')?'flex':'none'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        // --- CART (Login Guard) ---
+        // --- CART ---
         function addToCart(id) {
-            if(!isLoggedIn) { alert("Please Login first!"); openModal('login'); return; }
+            if(!isLoggedIn) { alert("⚠️ Please Login or Sign Up first to add items!"); openModal('login'); return; }
             const p = products.find(x => x.id === id);
             cart.push(p);
             document.getElementById('cartCount').innerText = cart.length;
-            alert(`${p.name} added to cart!`);
             renderCart();
         }
 
@@ -373,35 +463,36 @@
             const container = document.getElementById('cartItems');
             const checkout = document.getElementById('checkoutSection');
             if(cart.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#aaa; padding:40px;">Cart is empty.</p>';
+                container.innerHTML = '<p style="text-align:center; color:#888; padding:60px; background:#1a1a1a; border-radius:15px;">Your cart is empty. <br> <span style="color:var(--gold); cursor:pointer;" onclick="showPage(\'shop\')">Continue Shopping</span></p>';
                 checkout.style.display = 'none'; return;
             }
             let html = '', total = 0;
             cart.forEach((item, idx) => {
                 total += item.price;
-                html += `<div class="cart-item-row"><span>${idx+1}. ${item.icon} ${item.name}</span><span style="color:var(--gold); font-weight:bold;">₹${item.price}</span></div>`;
+                html += `<div class="cart-item-row"><div><span style="font-weight:700;">${item.icon}</span> ${item.name}</div><span style="color:var(--gold); font-weight:700;">₹${item.price}</span></div>`;
             });
-            html += `<div class="cart-item-row" style="border:2px solid var(--gold); background:#222;"><strong>TOTAL</strong><strong>₹${total}</strong></div>`;
+            html += `<div class="cart-item-row" style="border:2px solid var(--gold); background:#0f0f0f; font-size:18px;"><span>Order Total</span><span style="color:var(--gold);">₹${total}</span></div>`;
             container.innerHTML = html;
             checkout.style.display = 'block';
         }
 
-        // --- ORDER ---
+        // --- ORDERS & CHECKOUT ---
         function placeOrder() {
             if(!isLoggedIn) { alert("Please login first."); openModal('login'); return; }
             const name = document.getElementById('chkName').value;
             const phone = document.getElementById('chkPhone').value;
             const pincode = document.getElementById('chkPincode').value;
-            const address = document.getElementById('chkAddress').value;
+            const city = document.getElementById('chkCity').value;
+            const addr = document.getElementById('chkAddress').value;
 
-            if(!name || !phone || !pincode || !address) {
-                alert("Please fill in ALL shipping details (Name, Phone, Pincode, Address) before ordering!");
+            if(!name || !phone || !pincode || !city || !addr) {
+                alert("Please fill in ALL shipping details (Name, Phone, Pincode, City, Address) before ordering!");
                 return;
             }
 
             orderCounter++;
             const orderId = `#PN-2026-${String(orderCounter).padStart(3, '0')}`;
-            const order = { id: orderId, date: new Date().toLocaleDateString(), items: [...cart], total: cart.reduce((s,i)=>s+i.price, 0), address: `${name}, ${address}, ${pincode}, ${phone}` };
+            const order = { id: orderId, date: new Date().toLocaleDateString(), items: [...cart], total: cart.reduce((s,i)=>s+i.price, 0), address: `${name}, ${addr}, ${city}, ${pincode}, ${phone}` };
             orders.push(order);
             localStorage.setItem('pn_orders', JSON.stringify(orders));
             
@@ -410,26 +501,28 @@
             renderCart(); showPage('profile'); renderOrders();
         }
 
-        // --- PROFILE & TRACKING ---
         function renderOrders() {
             const container = document.getElementById('orderList');
             const stored = localStorage.getItem('pn_orders');
             if(stored) orders = JSON.parse(stored);
 
             if(orders.length === 0) {
-                container.innerHTML = '<p style="color:#aaa; text-align:center; padding:20px;">No orders placed yet.</p>';
+                container.innerHTML = '<p style="color:#888; text-align:center; padding:40px; background:#1a1a1a; border-radius:15px;">You haven\'t placed any orders yet.<br><span style="color:var(--gold); cursor:pointer;" onclick="showPage(\'shop\')">Browse our Shop</span></p>';
                 return;
             }
             let html = '';
             orders.slice().reverse().forEach(order => {
                 html += `
                     <div class="order-card">
-                        <div class="order-id" style="display:flex; justify-content:space-between; border-bottom:1px solid #333; padding-bottom:10px;">
-                            <span>${order.id}</span><span style="color:#888; font-size:13px;">${order.date}</span>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #333; padding-bottom:10px;">
+                            <span style="color:var(--gold); font-weight:700; font-size:16px;">${order.id}</span>
+                            <span style="color:#888; font-size:13px;">Placed on: ${order.date}</span>
                         </div>
-                        <p style="font-size:14px; margin:10px 0;">Total: <span style="color:var(--gold); font-weight:bold;">₹${order.total}</span></p>
-                        <p style="font-size:12px; color:#666;">Deliver to: ${order.address}</p>
-                        <button class="auth-btn" style="background:transparent; border:1px solid var(--gold); color:var(--gold); margin-top:10px;" onclick="openTracker('${order.id}')">Track Order</button>
+                        <div style="margin:15px 0; font-size:14px;">
+                            <p>Items: ${order.items.length} | Total: <span style="color:var(--gold); font-weight:700;">₹${order.total}</span></p>
+                            <p style="color:#888; font-size:12px; margin-top:5px;">Deliver to: ${order.address}</p>
+                        </div>
+                        <button class="auth-btn" style="background:transparent; border:1px solid var(--gold); color:var(--gold); padding:8px 25px;" onclick="openTracker('${order.id}')"><i class="fas fa-truck"></i> Track Order</button>
                     </div>
                 `;
             });
