@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PN RISE - Natural Herbal Face Packs</title>
+    
+    <!-- Importing Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        :root {
+            --primary-green: #7ca886;
+            --dark-green: #4d6f5a;
+            --bg-dark: #1c1c1c;
+            --text-white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+            perspective: 1px;
+            height: 100vh;
+        }
+
+        /* --- 3D PARALLAX BACKGROUND (WebGL) --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(1px);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(28, 28, 28, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Logo must be named logo.png in the same folder */
+        .logo-img {
+            width: 60px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(124, 168, 134, 0.5));
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--primary-green);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            transform: translateZ(-1px) scale(2); /* 3D Parallax effect */
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .hero h1 span {
+            color: var(--primary-green);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            background: var(--primary-green);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(124, 168, 134, 0.6);
+        }
+
+        /* --- PRODUCTS GRID --- */
+        .products-section {
+            padding: 100px 50px;
+            background: rgba(28, 28, 28, 0.9);
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--primary-green);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: #2b2b2b;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(124, 168, 134, 0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: var(--primary-green);
+        }
+
+        .product-card h3 {
+            margin: 15px 0 10px;
+            font-size: 20px;
+        }
+
+        .price-india {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .price-intl {
+            color: #aaa;
+            font-size: 14px;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .ingredients-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #3a3a3a;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #141414;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+            position: relative;
+            z-index: 10;
+        }
+
+        footer p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+
+        .company-address {
+            color: #aaa;
+            margin-top: 10px;
+            font-size: 13px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; padding: 20px; gap: 15px; }
+            .hero h1 { font-size: 36px; }
+            .products-section { padding: 50px 20px; }
+            .product-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Particle Background Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo-container">
+            <!-- Replace this with your actual logo image file named logo.png -->
+            <img src="logo.png" alt="PN Rise Logo" class="logo-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'><circle cx=\'30\' cy=\'30\' r=\'30\' fill=\'%237ca886\'/><text x=\'30\' y=\'38\' font-family=\'Arial\' font-size=\'20\' fill=\'white\' text-anchor=\'middle\'>PN</text></svg>'">
+            <span class="brand-name">PN RISE</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#products">Shop</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Herbal Glow.<br><span>Naturally You.</span></h1>
+        <p>Handcrafted face packs made with pure Beetroot, Neem, Rice, and Turmeric. 100% Natural, 0% Chemicals.</p>
+        <a href="#products" class="cta-btn">Explore Our Packs</a>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <h2 class="section-title">Our Signature Face Packs (80g)</h2>
+        <div class="product-grid">
+            
+            <!-- Product 1: Combo Pack -->
+            <div class="product-card">
+                <div class="ingredients-img" style="display:flex; justify-content:center; align-items:center; background:#222;">
+                   <h3 style="color:#7ca886;">🍃 Combo Pack</h3>
+                   <p style="font-size:12px; color:#aaa;">Beetroot · Neem · Rice</p>
+                </div>
+                <h3>Herbal Trio Face Pack</h3>
+                <p style="color:#888; font-size:12px; margin-bottom:10px;">For glowing & acne-free skin</p>
+                <div>
+                    <span class="price-india">₹ 599</span>
+                    <span class="price-intl">$ 25 (₹ 2000)</span>
+                </div>
+                <br>
+                <button class="cta-btn" style="padding: 10px 25px; font-size:14px;">Add to Cart</button>
+            </div>
+
+            <!-- Product 2: Turmeric Pack -->
+            <div class="product-card">
+                <div class="ingredients-img" style="display:flex; justify-content:center; align-items:center; background:#222;">
+                   <h3 style="color:#f5c542;">✨ Turmeric Pack</h3>
+                   <p style="font-size:12px; color:#aaa;">Turmeric · Neem · Rice</p>
+                </div>
+                <h3>Glow & Protect Pack</h3>
+                <p style="color:#888; font-size:12px; margin-bottom:10px;">For clear, radiant skin</p>
+                <div>
+                    <span class="price-india">₹ 499</span>
+                    <span class="price-intl">$ 20 (₹ 1600)</span>
+                </div>
+                <br>
+                <button class="cta-btn" style="padding: 10px 25px; font-size:14px;">Add to Cart</button>
+            </div>
+
+            <!-- Product 3: Beetroot Pack -->
+            <div class="product-card">
+                <div class="ingredients-img" style="display:flex; justify-content:center; align-items:center; background:#222;">
+                   <h3 style="color:#c0414a;">❤️ Beetroot Pack</h3>
+                   <p style="font-size:12px; color:#aaa;">Beetroot · Rice · Shea</p>
+                </div>
+                <h3>Natural Blush Pack</h3>
+                <p style="color:#888; font-size:12px; margin-bottom:10px;">For natural pink glow</p>
+                <div>
+                    <span class="price-india">₹ 450</span>
+                    <span class="price-intl">$ 18 (₹ 1440)</span>
+                </div>
+                <br>
+                <button class="cta-btn" style="padding: 10px 25px; font-size:14px;">Add to Cart</button>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer / Address -->
+    <footer id="contact">
+        <p><strong>PN RISE</strong> — Herbal Glow. Naturally You.</p>
+        <div class="company-address">
+            <p><strong>Corporate Office Address:</strong><br>
+            Building No./Flat No.: BLOCK- JANDAHA<br>
+            Name Of Premises/Building: W/O NARESH RAM<br>
+            Road/Street: VILLAGE - ROAD RAMPUR CHAKLALA PO- JANDAHA<br>
+            City/Town/Village: Rampur Chak Lala<br>
+            District: Vaishali, State: Bihar, PIN Code: 844505</p>
+        </div>
+        <p style="margin-top:20px; font-size:11px;">&copy; 2026 PN Rise. All Rights Reserved.</p>
+    </footer>
+
+    <!-- --- 3D WEBGL ANIMATION SCRIPT (Lightweight & Fast) --- -->
+    <!-- Importing Three.js Library for 3D Effects -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
+
+        // Initialize Scene, Camera, Renderer
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1c1c1c); // Dark BG matches website
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 30;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Create a visual "Leaf" shape using geometry
+        const leafGroup = new THREE.Group();
+        
+        function createLeaf(color, x, y, z, rotZ) {
+            const shape = new THREE.Shape();
+            shape.moveTo(0, 0);
+            shape.bezierCurveTo(1, 2, 3, 3, 4, 0);
+            shape.bezierCurveTo(3, -3, 1, -2, 0, 0);
+            
+            const geometry = new THREE.ShapeGeometry(shape);
+            const material = new THREE.MeshStandardMaterial({
+                color: color,
+                emissive: color,
+                emissiveIntensity: 0.3,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.7
+            });
+            const leaf = new THREE.Mesh(geometry, material);
+            leaf.position.set(x, y, z);
+            leaf.rotation.z = rotZ;
+            leaf.scale.set(0.5, 0.5, 0.5);
+            return leaf;
+        }
+
+        // Adding leaves to simulate floating ingredients
+        const greens = ['#7ca886', '#4d6f5a', '#9bbc8b'];
+        const positions = [
+            [-10, 5, -5], [10, -4, -10], [-8, -6, -20], [12, 8, -15], [-15, 0, -30]
+        ];
+        
+        positions.forEach(pos => {
+            const leaf = createLeaf(greens[Math.floor(Math.random() * greens.length)], pos[0], pos[1], pos[2], Math.PI / 2);
+            leafGroup.add(leaf);
+        });
+
+        scene.add(leafGroup);
+
+        // Lighting for 3D effect
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+        const light = new THREE.PointLight(0xffffff, 1);
+        light.position.set(10, 20, 20);
+        scene.add(light);
+        const light2 = new THREE.PointLight(0x7ca886, 0.5);
+        light2.position.set(-10, -10, 20);
+        scene.add(light2);
+
+        // --- ANIMATION LOOP (Super Fast / Dynamic) ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the whole leafy particle group slowly to simulate wind/floating
+            leafGroup.rotation.y += 0.005;
+            leafGroup.rotation.x += 0.001;
+            
+            // Move camera slightly for cinematic effect
+            camera.position.x = Math.sin(Date.now() * 0.0005) * 5;
+            camera.lookAt(0, 0, 0);
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resizing to prevent breaking
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    </script>
+</body>
+</html>
