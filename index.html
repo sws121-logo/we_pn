@@ -3,144 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PN RISE - Premium Natural Skincare</title>
+    <title>PN RISE - 4D Premium Natural Skincare</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         /* --- GLOBAL VARIABLES --- */
         :root {
-            --primary: #6B8E5A; --primary-light: #8baa7d; --bg-dark: #0f0f0f;
-            --bg-card: #1a1a1a; --text-main: #f3f4f6; --text-muted: #9ca3af;
-            --border-color: #2a2a2a; --danger: #ff4757; --blue: #3b82f6;
+            --primary: #6B8E5A; --primary-light: #8baa7d; --primary-glow: rgba(107, 142, 90, 0.4);
+            --bg-dark: #0f0f0f; --bg-card: #1a1a1a; --glass: rgba(26, 26, 26, 0.6);
+            --text-main: #f3f4f6; --text-muted: #9ca3af; --border-color: #2a2a2a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
         ul { list-style: none; }
 
-        /* --- HEADER & NAV --- */
+        /* --- SCROLL REVEAL UTILITY --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- HEADER & GLASSMORPHISM --- */
         header {
-            background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(12px);
-            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color);
+            background: rgba(15, 15, 15, 0.75); backdrop-filter: blur(15px); /* 4D Glass Effect */
+            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
             padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; gap: 15px;
         }
         .header-left { display: flex; align-items: center; gap: 12px; cursor: pointer; }
         .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary); background: #222; display: flex; justify-content:center; align-items:center; font-size: 18px; font-weight:bold; color:var(--primary);}
-        .brand-text { font-size: 22px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; }
+        .brand-text { font-size: 22px; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; letter-spacing: 0.5px; }
         
-        /* Nav Links */
         .nav-links { display: flex; align-items: center; gap: 25px; }
         .nav-links a { color: var(--text-muted); text-decoration: none; cursor: pointer; transition: 0.3s; font-weight: 500; font-size: 14px; position:relative; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary); }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
         .header-right { display: flex; align-items: center; gap: 20px; position: relative; }
         .icon-btn { font-size: 20px; color: var(--text-main); cursor: pointer; transition: 0.3s; position: relative; }
-        .icon-btn:hover { color: var(--primary); }
-        .badge { position: absolute; top: -8px; right: -10px; background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: 700; }
+        .icon-btn:hover { color: var(--primary); transform: scale(1.1); }
+        .badge { position: absolute; top: -8px; right: -10px; background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; font-weight: 700; box-shadow: 0 0 10px var(--primary-glow); }
 
         /* --- USER DROPDOWN --- */
         .user-menu-wrapper { position: relative; }
         .user-trigger { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; font-size: 14px; color: var(--text-muted); }
         .user-trigger:hover { color: var(--primary); }
         .dropdown-menu {
-            position: absolute; top: 45px; right: 0; width: 240px; background: var(--bg-card);
-            border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            display: none; overflow: hidden; padding: 10px 0; z-index: 1001;
+            position: absolute; top: 45px; right: 0; width: 240px; background: var(--glass);
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: none; overflow: hidden; padding: 10px 0; z-index: 1001;
         }
-        .dropdown-menu.open { display: block; animation: fadeIn 0.2s ease; }
+        .dropdown-menu.open { display: block; animation: fadeDown 0.3s ease; }
+        @keyframes fadeDown { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
         .dropdown-item { padding: 12px 20px; display: flex; align-items: center; gap: 15px; color: var(--text-main); cursor: pointer; transition: 0.2s; font-size: 14px; }
-        .dropdown-item:hover { background: #262626; color: var(--primary); }
-        .dropdown-item i { width: 20px; text-align: center; color: var(--text-muted); }
+        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--primary); }
 
         /* --- MAIN PAGES --- */
         main { margin-top: 80px; min-height: 80vh; }
         .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active { display: block; animation: fadeSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- CONTENT BLOCKS --- */
-        .content-block { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2rem; font-weight: 600; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 30px; }
-        .cta-btn { background: var(--primary); border: none; padding: 12px 30px; border-radius: 30px; color: white; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .content-block { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; margin-bottom: 15px; }
+        .section-sub { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 16px; line-height: 1.6; }
+        .cta-btn { background: var(--primary); border: none; padding: 14px 35px; border-radius: 50px; color: white; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 20px var(--primary-glow); }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 8px 30px var(--primary-glow); }
 
-        /* --- HOME PAGE WITH 3D --- */
+        /* --- HOME PAGE RICH CONTENT --- */
         .hero {
-            height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
             background: #0f0f0f; position: relative; overflow: hidden;
         }
         #canvas-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .hero-content { position: relative; z-index: 1; }
-        .hero h1 { font-size: 3.5rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 15px; }
-        .hero h1 span { color: var(--primary); }
-        .hero p { max-width: 550px; opacity: 0.8; margin-bottom: 30px; font-size: 1.05rem; line-height: 1.6; }
+        .hero-content { position: relative; z-index: 1; padding: 20px; }
+        .hero h1 { font-size: 4.5rem; font-weight: 700; font-family: 'Playfair Display', serif; margin-bottom: 20px; text-shadow: 0 5px 30px rgba(0,0,0,0.8); }
+        .hero h1 span { color: var(--primary); text-shadow: 0 0 30px var(--primary-glow); }
+        .hero p { max-width: 600px; opacity: 0.8; margin: 0 auto 40px; font-size: 1.2rem; line-height: 1.6; }
 
-        /* --- SHOP --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
-        .product-card { background: var(--bg-card); border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); transition: 0.3s; text-align: center; cursor: pointer; position: relative; }
-        .product-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
-        .product-img { font-size: 60px; margin-bottom: 15px; display: block; }
-        .price { color: var(--primary); font-weight: 700; font-size: 20px; }
-        .old-price { color: var(--text-muted); text-decoration: line-through; font-size: 14px; margin-left: 10px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+        .feature-card { background: var(--glass); backdrop-filter: blur(5px); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; text-align: center; }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .feature-icon { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
 
-        /* --- CONTACT PAGE --- */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
-        .contact-info-box { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin: 10px 0; background: #0f0f0f; border: 1px solid #333; border-radius: 8px; color: white; }
+        .faq-item { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 10px; cursor: pointer; }
+        .faq-question { font-weight: 600; display: flex; justify-content: space-between; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: 0.4s; color: var(--text-muted); }
+        .faq-item.active .faq-answer { max-height: 200px; padding-top: 15px; }
+        .faq-item.active { border-color: var(--primary); }
+
+        /* --- SHOP & 3D TILT CARDS --- */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product-card-wrapper { perspective: 1000px; } /* 4D Tilt Container */
+        .product-card {
+            background: var(--bg-card); border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+            text-align: center; cursor: pointer; position: relative; transform-style: preserve-3d;
+        }
+        .product-card-wrapper:hover .product-card { transform: rotateX(5deg) rotateY(5deg) scale(1.02); box-shadow: 0 20px 50px rgba(0,0,0,0.6); border-color: var(--primary); }
+        .product-img { font-size: 60px; margin-bottom: 15px; transform: translateZ(30px); display: block; } /* Pops out in 3D */
+        .product-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; transform: translateZ(20px); }
+        .product-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 15px; transform: translateZ(10px); }
+
+        /* --- CONTACT & ABOUT PAGE CONTENT --- */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .info-box { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 14px; margin: 10px 0; background: #0f0f0f; border: 1px solid #333; border-radius: 8px; color: white; transition: 0.3s; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px var(--primary-glow); }
         
         /* --- PROFILE DASHBOARD --- */
         .dashboard-wrapper { max-width: 1000px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .dash-section { background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border-color); padding: 25px; }
-        .dash-section h3 { color: var(--primary); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; font-size: 18px; }
-        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #222; }
-        .info-row label { color: var(--text-muted); }
-        .info-row span { color: white; }
-        .order-history-card { background: #222; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border-color); }
-        .track-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; transition:0.3s; }
-        .track-btn:hover { background: var(--primary); color: white; }
-
-        /* --- TRACKING MODAL (5-Step) --- */
-        .tracker-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(5px); }
-        .tracker-box { background: var(--bg-card); width: 90%; max-width: 600px; padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); position: relative; }
-        .close-tracker { float: right; cursor: pointer; color: var(--text-muted); font-size: 22px; }
-        .tracker-title { font-family: 'Playfair Display', serif; color: var(--primary); text-align: center; margin-bottom: 20px; }
+        .dash-section { background: var(--glass); backdrop-filter: blur(5px); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); padding: 25px; }
+        .dash-section h3 { color: var(--primary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; font-size: 18px; }
+        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .info-row label { color: var(--text-muted); } .info-row span { color: white; }
+        .order-history-card { background: var(--bg-card); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border-color); }
         
+        /* --- TRACKING MODAL --- */
+        .tracker-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(8px); }
+        .tracker-box { background: var(--bg-card); width: 90%; max-width: 600px; padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
         .track-timeline { position: relative; padding-left: 30px; margin-top: 20px; }
-        .track-timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #333; }
+        .track-timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 3px; background: #333; }
         .track-step-item { position: relative; padding-bottom: 25px; padding-left: 20px; opacity: 0.5; transition: 0.3s; }
         .track-step-item.completed { opacity: 1; }
         .track-step-item.active { opacity: 1; }
-        .track-step-item.active .step-dot { animation: pulseDot 1.5s infinite; background: var(--blue); border-color: var(--blue); }
-        
-        .track-step-item .step-dot { position: absolute; left: -26px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #333; border: 2px solid #333; z-index: 1; }
-        .track-step-item.completed .step-dot { background: var(--primary); border-color: var(--primary); }
-        .track-step-item .step-text { font-size: 14px; font-weight: 600; color: white; }
-        .track-step-item .step-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-        @keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
+        .track-step-item .step-dot { position: absolute; left: -26px; top: 0; width: 18px; height: 18px; border-radius: 50%; background: #333; border: 3px solid #333; z-index: 1; }
+        .track-step-item.completed .step-dot { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
 
         /* --- CART --- */
         .cart-wrapper { max-width: 900px; margin: 30px auto; padding: 0 20px; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border-color); }
-        .checkout-box { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 25px; display: none; }
+        .checkout-box { background: var(--glass); backdrop-filter: blur(5px); padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-top: 25px; display: none; }
         .checkout-box input { width: 100%; padding: 12px; margin: 10px 0; background: #0f0f0f; border: 1px solid #333; border-radius: 6px; color: white; }
 
         /* --- MODALS --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(6px); }
         .modal-box { background: var(--bg-card); padding: 30px; border-radius: 16px; width: 90%; max-width: 380px; border: 1px solid var(--border-color); }
         .modal-box h2 { color: var(--primary); text-align: center; margin-bottom: 20px; }
         .modal-box input { width: 100%; padding: 12px; margin: 10px 0; background: #0f0f0f; border: 1px solid #333; border-radius: 6px; color: white; }
-        .modal-box button { width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; }
-        .close-modal { float: right; cursor: pointer; color: var(--text-muted); font-size: 22px; }
+        .modal-box button { width: 100%; padding: 12px; background: var(--primary); border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px var(--primary-glow); }
+        .close-modal { float: right; cursor: pointer; color: var(--text-muted); font-size: 22px; transition: 0.3s; } .close-modal:hover { color: white; transform: rotate(90deg); }
 
         @media(max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; } .nav-links { gap: 10px; } .nav-links a { font-size: 12px; }
-            .contact-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; } .nav-links { gap: 10px; } .nav-links a { font-size: 11px; }
+            .grid-2 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER WITH MULTI-PAGE NAV -->
+    <!-- HEADER -->
     <header>
         <div class="header-left" onclick="navigatePage('home')">
             <div class="logo-img">PN</div>
@@ -150,8 +161,9 @@
         <div class="nav-links">
             <a class="active" onclick="navigatePage('home')">Home</a>
             <a onclick="navigatePage('shop')">Shop</a>
-            <a onclick="navigatePage('cart')">Cart</a>
+            <a onclick="navigatePage('about')">About</a>
             <a onclick="navigatePage('contact')">Contact</a>
+            <a onclick="navigatePage('cart')"><i class="fas fa-shopping-cart"></i></a>
         </div>
 
         <div class="header-right">
@@ -160,20 +172,17 @@
                 <span class="badge" id="cartCount">0</span>
             </div>
             
-            <!-- User Dropdown Wrapper -->
             <div class="user-menu-wrapper">
                 <div class="user-trigger" id="userTrigger" onclick="toggleDropdown()">
                     <i class="fas fa-user-circle" style="font-size: 22px;"></i>
                     <span id="userNameText">Login</span>
-                    <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 5px; color:var(--text-muted);"></i>
+                    <i class="fas fa-chevron-down" style="font-size: 12px;"></i>
                 </div>
                 
-                <!-- Dropdown Menu -->
                 <div class="dropdown-menu" id="userDropdown">
                     <div class="dropdown-item" onclick="navigateAndClose('profile')"><i class="fas fa-user-circle"></i> My Profile</div>
                     <div class="dropdown-item" onclick="navigateAndClose('profile')"><i class="fas fa-box"></i> My Orders</div>
-                    <div class="dropdown-item" onclick="navigateAndClose('profile')"><i class="fas fa-map-marker-alt"></i> Saved Addresses</div>
-                    <div class="dropdown-divider" style="height:1px; background:#333; margin:5px 0;"></div>
+                    <div style="height:1px; background:#333; margin:5px 0;"></div>
                     <div class="dropdown-item" style="color:#ff4757;" onclick="handleAuthClick()"><i class="fas fa-sign-out-alt"></i> Logout</div>
                 </div>
             </div>
@@ -181,96 +190,142 @@
     </header>
 
     <main>
-        <!-- 1. HOME -->
+        <!-- 1. HOME (Rich Content) -->
         <section id="home" class="page active">
             <div class="hero">
                 <div id="canvas-container"></div>
                 <div class="hero-content">
                     <h1>Ancient Secrets,<br><span>Modern Glow</span></h1>
-                    <p>Handcrafted with 100% pure Beetroot, Neem, Turmeric & Rice. Zero chemicals, just nature's best.</p>
-                    <button class="cta-btn" onclick="navigatePage('shop')">Shop Now</button>
+                    <p>Handcrafted with 100% pure Ayurvedic herbs. Zero chemicals, just nature's best.</p>
+                    <button class="cta-btn" onclick="navigatePage('shop')">Start Your Glow Journey</button>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2 class="section-title reveal">Why PN RISE?</h2>
+                <p class="section-sub reveal">We blend ancient wisdom with modern science to bring you skincare that is pure, potent, and powerful.</p>
+                <div class="feature-grid">
+                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-seedling"></i></div><h3>100% Natural</h3><p style="color:var(--text-muted);">Sourced directly from organic farms in Bihar. No chemicals, no fillers.</p></div>
+                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-hand-sparkles"></i></div><h3>Handcrafted in Batches</h3><p style="color:var(--text-muted);">Freshly ground in small batches to preserve maximum potency and nutrients.</p></div>
+                    <div class="feature-card reveal"><div class="feature-icon"><i class="fas fa-leaf"></i></div><h3>Ayurvedic Formulations</h3><p style="color:var(--text-muted);">Formulated using ancient Ayurvedic recipes proven for radiant, healthy skin.</p></div>
+                </div>
+            </div>
+
+            <div class="content-block" style="border-top:1px solid var(--border-color);">
+                <h2 class="section-title reveal">Frequently Asked Questions</h2>
+                <p class="section-sub reveal">Everything you need to know before you glow.</p>
+                <div class="faq-container" style="max-width:800px; margin:0 auto;">
+                    <div class="faq-item reveal" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">How often should I use these packs? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">We recommend using our face packs 2 to 3 times a week. For sensitive skin, start with once a week.</div>
+                    </div>
+                    <div class="faq-item reveal" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">Are these suitable for sensitive skin? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Absolutely. Our products contain only pure herbs. However, we always recommend a patch test.</div>
+                    </div>
+                    <div class="faq-item reveal" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">How to store the face pack powder? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Store in a cool, dry place away from direct sunlight. Keep the lid tightly closed to prevent moisture.</div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. SHOP -->
+        <!-- 2. SHOP (4D Cards) -->
         <section id="shop" class="page">
             <div class="content-block">
-                <h2 class="section-title">Our Signature Face Packs</h2>
+                <h2 class="section-title reveal">Our Signature Face Packs (80g)</h2>
+                <p class="section-sub reveal">Freshly ground, 100% natural, and crafted with love.</p>
                 <div class="product-grid" id="shopGrid"></div>
             </div>
         </section>
 
-        <!-- 3. PROFILE DASHBOARD -->
+        <!-- 3. PROFILE -->
         <section id="profile" class="page">
             <div class="dashboard-wrapper">
-                <h2 class="section-title" style="text-align:left;">My Profile</h2>
-                
-                <!-- Personal Info Section -->
-                <div class="dash-section">
+                <h2 class="section-title" style="text-align:left; font-size:1.8rem;">My Account Dashboard</h2>
+                <div class="dash-section reveal">
                     <h3>Personal Information</h3>
                     <div class="info-row"><label>Full Name</label><span id="dashName">Guest User</span></div>
                     <div class="info-row"><label>Email Address</label><span id="dashEmail">Not Logged In</span></div>
-                    <div class="info-row"><label>Mobile Number</label><span>+91-9876543210</span></div>
                 </div>
-
-                <!-- Address Section -->
-                <div class="dash-section">
+                <div class="dash-section reveal">
                     <h3>Manage Addresses</h3>
                     <div class="info-row" style="flex-direction:column; border:none; gap:5px; padding:10px 0;">
                         <strong style="color:white;">Home Address</strong>
                         <span style="color:var(--text-muted); font-size:14px;">BLOCK- JANDAHA, W/O NARESH RAM, Village - Rampur Chaklala, PO- Jandaha, Vaishali, Bihar - 844505</span>
                     </div>
                 </div>
-
-                <!-- Orders Section -->
-                <div class="dash-section">
-                    <h3>My Orders (Click to Track)</h3>
+                <div class="dash-section reveal">
+                    <h3>Order History & Tracking</h3>
                     <div id="orderListContainer">
-                        <p style="color:var(--text-muted); text-align:center; padding:10px;">No orders placed yet.</p>
+                        <p style="color:var(--text-muted); text-align:center; padding:20px;">No orders placed yet.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. CONTACT US -->
+        <!-- 4. ABOUT (Rich Content) -->
+        <section id="about" class="page">
+            <div class="content-block">
+                <h2 class="section-title reveal">The Story of PN RISE</h2>
+                <div style="background:var(--bg-card); padding:40px; border-radius:16px; border:1px solid var(--border-color); line-height:1.8;">
+                    <p class="reveal" style="font-size:17px; margin-bottom:20px;">Welcome to PN RISE, where <strong>ancient Ayurvedic wisdom</strong> meets <strong>modern skincare science</strong>. We believe that true beauty comes from within, and the healthiest skin is nurtured by nature.</p>
+                    <p class="reveal" style="font-size:17px; margin-bottom:20px;">Based in the heart of <strong>Vaishali, Bihar</strong>, we handcraft every face pack in small batches using 100% natural ingredients sourced directly from local farmers. Our mission is to provide chemical-free, pure, and effective skincare solutions for every skin type.</p>
+                    
+                    <div class="reveal" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:30px; margin-top:40px; text-align:center; background:#0f0f0f; padding:30px; border-radius:12px;">
+                        <div><h3 style="color:var(--primary); font-size:28px;">100%</h3><p style="color:var(--text-muted);">Natural Herbs</p></div>
+                        <div><h3 style="color:var(--primary); font-size:28px;">Zero</h3><p style="color:var(--text-muted);">Chemicals</p></div>
+                        <div><h3 style="color:var(--primary); font-size:28px;">500+</h3><p style="color:var(--text-muted);">Happy Customers</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CONTACT -->
         <section id="contact" class="page">
             <div class="content-block">
-                <h2 class="section-title">Get In Touch</h2>
-                <p style="text-align:center; color:var(--text-muted); margin-bottom:30px;">Have questions about our products or your order? We're here to help!</p>
-                <div class="contact-grid">
-                    <div class="contact-info-box">
-                        <h3 style="color:var(--primary);"><i class="fas fa-map-marker-alt"></i> Our Office</h3>
-                        <p>BLOCK- JANDAHA, W/O NARESH RAM<br>Village - Rampur Chaklala, PO- Jandaha<br>Vaishali, Bihar - <strong>844505</strong></p>
+                <h2 class="section-title reveal">Get In Touch</h2>
+                <p class="section-sub reveal">Have questions about our products or your order? We're here to help!</p>
+                <div class="grid-2">
+                    <div class="info-box reveal">
+                        <h3 style="color:var(--primary); font-size:20px; margin-bottom:20px;"><i class="fas fa-map-marker-alt"></i> Our Corporate Office</h3>
+                        <p style="line-height:1.8;">BLOCK- JANDAHA, W/O NARESH RAM<br>
+                        Village - Rampur Chaklala, PO- Jandaha<br>
+                        Vaishali, Bihar - <strong>844505</strong></p>
                         <br>
-                        <h3 style="color:var(--primary);"><i class="fas fa-phone-alt"></i> Support</h3>
+                        <h3 style="color:var(--primary); font-size:20px; margin-bottom:15px;"><i class="fas fa-phone-alt"></i> Customer Support</h3>
                         <p>📞 +91-70000-00000<br>✉️ support@pnrise.in</p>
+                        <br>
+                        <h3 style="color:var(--primary); font-size:20px; margin-bottom:15px;"><i class="fas fa-clock"></i> Working Hours</h3>
+                        <p>Mon - Sat: 9:00 AM - 7:00 PM (IST)</p>
                     </div>
-                    <form class="contact-form contact-info-box" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-                        <h3 style="color:var(--primary);">Send a Message</h3>
-                        <input type="text" placeholder="Your Name *" required>
-                        <input type="email" placeholder="Your Email *" required>
-                        <textarea rows="4" placeholder="Your Message *" required></textarea>
-                        <button type="submit" class="cta-btn" style="width:100%;">Send Message</button>
+                    <form class="contact-form info-box reveal" onsubmit="event.preventDefault(); alert('Message sent successfully! Our team will get back to you within 24 hours.');">
+                        <h3 style="color:var(--primary); font-size:20px; margin-bottom:20px;">Send us a Message</h3>
+                        <input type="text" placeholder="Your Full Name *" required>
+                        <input type="email" placeholder="Your Email Address *" required>
+                        <input type="text" placeholder="Subject">
+                        <textarea rows="5" placeholder="Describe your query in detail... *" required></textarea>
+                        <button type="submit" class="cta-btn" style="width:100%; font-size:16px;">Send Message</button>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- 5. CART & CHECKOUT -->
+        <!-- 6. CART -->
         <section id="cart" class="page">
             <div class="cart-wrapper">
-                <h2 style="color:var(--primary); font-size:22px; margin-bottom:20px;">Shopping Cart</h2>
+                <h2 style="color:var(--primary); font-size:28px; margin-bottom:20px; font-family:'Playfair Display', serif;">Shopping Cart</h2>
                 <div id="cartItems">
-                    <p style="text-align:center; color:var(--text-muted); padding:30px; background:var(--bg-card); border-radius:12px;">Your cart is empty.</p>
+                    <p style="text-align:center; color:var(--text-muted); padding:40px; background:var(--bg-card); border-radius:16px; border:1px solid var(--border-color);">Your cart is empty. Start adding your favorite herbal packs!</p>
                 </div>
                 <div class="checkout-box" id="checkoutSection">
-                    <h3 style="color:var(--primary); margin-bottom:15px;">Delivery Address</h3>
+                    <h3 style="color:var(--primary); margin-bottom:15px;">Delivery Details</h3>
                     <input type="text" id="chkName" placeholder="Full Name *">
                     <input type="tel" id="chkPhone" placeholder="Phone Number *">
                     <input type="text" id="chkPincode" placeholder="Pincode *">
                     <input type="text" id="chkAddress" placeholder="Full Address *">
-                    <button class="cta-btn" style="width:100%; margin-top:10px;" onclick="placeOrder()">Place Order</button>
+                    <button class="cta-btn" style="width:100%; margin-top:15px; font-size:16px;" onclick="placeOrder()">Place Order (Cash on Delivery)</button>
                 </div>
             </div>
         </section>
@@ -299,23 +354,20 @@
         </div>
     </div>
 
-    <!-- TRACKING MODAL (5 Steps) -->
+    <!-- TRACKING MODAL -->
     <div class="tracker-overlay" id="trackerModal">
         <div class="tracker-box">
-            <span class="close-tracker" onclick="document.getElementById('trackerModal').style.display='none'">&times;</span>
-            <h2 class="tracker-title">Order Tracking</h2>
+            <span class="close-modal" onclick="document.getElementById('trackerModal').style.display='none'" style="float:right; font-size:24px; color:#888;">&times;</span>
+            <h2 style="font-family:'Playfair Display', serif; color:var(--primary); text-align:center; margin-bottom:10px;">Live Order Tracker</h2>
             <div id="trackerIdDisplay" style="text-align:center; color:var(--text-muted); margin-bottom:20px; font-size:14px;">Order #PN-2026-0001</div>
-            
-            <div class="track-timeline" id="trackerTimeline">
-                <!-- Steps injected via JS -->
-            </div>
+            <div class="track-timeline" id="trackerTimeline"></div>
             <div id="trackerFooter" style="text-align:center; margin-top:20px; color:var(--text-muted); font-size:13px; border-top:1px solid #333; padding-top:15px;">
                 Estimated Delivery: <strong style="color:var(--primary);">2-3 Business Days</strong>
             </div>
         </div>
     </div>
 
-    <!-- 3D BACKGROUND SCRIPT -->
+    <!-- 4D 3D BACKGROUND SCRIPT -->
     <script type="importmap">
         { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
     </script>
@@ -330,19 +382,24 @@
             renderer.setSize(window.innerWidth, window.innerHeight); renderer.setPixelRatio(window.devicePixelRatio);
             container.appendChild(renderer.domElement);
 
-            const geometry = new THREE.SphereGeometry(0.3, 6, 6);
-            const material = new THREE.MeshBasicMaterial({ color: 0x6B8E5A, transparent: true, opacity: 0.6 });
+            // Create Hexagon shapes instead of spheres
             const group = new THREE.Group();
-            for(let i=0; i<200; i++) {
+            const geometry = new THREE.CylinderGeometry(0.2, 0.2, 0.01, 6);
+            const material = new THREE.MeshBasicMaterial({ color: 0x6B8E5A, transparent: true, opacity: 0.4 });
+            
+            for(let i=0; i<300; i++) {
                 const mesh = new THREE.Mesh(geometry, material);
-                mesh.position.set((Math.random()-0.5)*50, (Math.random()-0.5)*50, (Math.random()-0.5)*20 - 10);
-                mesh.scale.set(0.5 + Math.random()*1.5, 0.5 + Math.random()*1.5, 0.5 + Math.random()*1.5);
+                mesh.position.set((Math.random()-0.5)*60, (Math.random()-0.5)*40, (Math.random()-0.5)*40 - 10);
+                mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
+                mesh.scale.set(1 + Math.random()*3, 1 + Math.random()*3, 1);
                 group.add(mesh);
             }
             scene.add(group);
+            
             function animate() {
                 requestAnimationFrame(animate);
-                group.rotation.y += 0.002; group.rotation.x = Math.sin(Date.now() * 0.0003) * 0.2;
+                group.rotation.y += 0.0015; 
+                group.rotation.x = Math.sin(Date.now() * 0.0002) * 0.2;
                 renderer.render(scene, camera);
             }
             animate();
@@ -370,45 +427,60 @@
             const storedOrders = localStorage.getItem('pn_orders');
             if(storedOrders) { orders = JSON.parse(storedOrders); orderCounter = orders.length; }
             renderShop();
+            // Trigger scroll reveal on load
+            setTimeout(checkReveal, 500);
         };
+        
+        // Add scroll listener for reveal animations
+        window.addEventListener('scroll', checkReveal);
+        function checkReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
 
-        // --- NAVIGATION (Multi-Page Feel) ---
+        // --- NAVIGATION ---
         function navigatePage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            // Highlight active nav
-            const navMap = {'home':0, 'shop':1, 'cart':2, 'contact':3};
+            const navMap = {'home':0, 'shop':1, 'about':2, 'contact':3, 'cart':4};
             const navs = document.querySelectorAll('.nav-links a');
             if(navMap[id] !== undefined) navs[navMap[id]].classList.add('active');
-
             if(id === 'cart') renderCart();
             if(id === 'profile') renderOrders();
             document.getElementById('userDropdown').classList.remove('open');
+            // Re-trigger scroll reveal for page switch
+            setTimeout(checkReveal, 600);
         }
 
         // --- SHOP ---
         function renderShop() {
             const grid = document.getElementById('shopGrid');
             grid.innerHTML = products.map(p => `
-                <div class="product-card">
-                    <div class="product-img">${p.icon}</div>
-                    <div style="font-size:18px; font-weight:600; margin-bottom:5px;">${p.name}</div>
-                    <div style="color:var(--text-muted); font-size:13px; margin-bottom:15px;">${p.desc}</div>
-                    <div class="price-row">
-                        <span class="price">₹${p.price}</span>
-                        <span class="old-price">₹${p.old}</span>
+                <div class="product-card-wrapper">
+                    <div class="product-card">
+                        <div class="product-img">${p.icon}</div>
+                        <div class="product-title">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="price-row">
+                            <span class="price" style="color:var(--primary); font-weight:700; font-size:20px;">₹${p.price}</span>
+                            <span class="old-price" style="color:var(--text-muted); text-decoration:line-through; font-size:14px; margin-left:10px;">₹${p.old}</span>
+                        </div>
+                        <button class="cta-btn" style="width:100%; font-size:14px; margin-top:15px;" onclick="addToCart(${p.id})">Add to Cart</button>
                     </div>
-                    <button class="cta-btn" style="width:100%; font-size:14px;" onclick="addToCart(${p.id})">Add to Cart</button>
                 </div>
             `).join('');
         }
 
         // --- DROPDOWN ---
-        function toggleDropdown() {
-            document.getElementById('userDropdown').classList.toggle('open');
-        }
+        function toggleDropdown() { document.getElementById('userDropdown').classList.toggle('open'); }
         function navigateAndClose(page) {
             if(isLoggedIn) navigatePage(page);
             else { alert("Please login first."); toggleDropdown(); openModal('login'); }
@@ -462,7 +534,7 @@
             const container = document.getElementById('cartItems');
             const checkout = document.getElementById('checkoutSection');
             if(cart.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding:30px; background:var(--bg-card); border-radius:12px;">Your cart is empty.</p>';
+                container.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding:40px; background:var(--bg-card); border-radius:16px; border:1px solid var(--border-color);">Your cart is empty.</p>';
                 checkout.style.display = 'none'; return;
             }
             let html = '', total = 0;
@@ -475,7 +547,7 @@
             checkout.style.display = 'block';
         }
 
-        // --- ORDERS & 5-STEP TRACKING ---
+        // --- ORDERS & TRACKING ---
         function placeOrder() {
             if(!isLoggedIn) { alert("Please login."); openModal('login'); return; }
             const name = document.getElementById('chkName').value, phone = document.getElementById('chkPhone').value;
@@ -484,16 +556,15 @@
 
             orderCounter++;
             const orderId = `PN-${String(orderCounter).padStart(4, '0')}`;
-            // Randomly assign a status for demo purposes (1 to 5)
             const randomStatus = Math.floor(Math.random() * 5) + 1; 
             
             const order = { 
                 id: orderId, 
-                date: new Date().toLocaleString(), // Includes Date & Time
+                date: new Date().toLocaleString(), 
                 items: [...cart], 
                 total: cart.reduce((s,i)=>s+i.price, 0), 
                 address: `${name}, ${address}, ${pincode}, ${phone}`,
-                status: randomStatus // 1=Placed, 2=Processed, 3=Shipped, 4=Out for Del, 5=Delivered
+                status: randomStatus 
             };
             orders.push(order);
             localStorage.setItem('pn_orders', JSON.stringify(orders));
@@ -509,7 +580,7 @@
             if(stored) orders = JSON.parse(stored);
 
             if(orders.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:10px;">You haven\'t placed any orders yet.</p>';
+                container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:20px;">No orders placed yet.</p>';
                 return;
             }
             let html = '';
@@ -525,14 +596,14 @@
                                 <span style="color:var(--text-muted); font-size:12px; margin-left:10px;">${order.date}</span>
                             </div>
                             <div>
-                                <span style="background:${order.status === 5 ? 'var(--primary)' : 'var(--blue)'}; padding:2px 12px; border-radius:12px; font-size:11px; color:white;">${currentStatusText}</span>
+                                <span style="background:${order.status === 5 ? 'var(--primary)' : 'var(--primary)'}; padding:4px 12px; border-radius:12px; font-size:11px; color:white;">${currentStatusText}</span>
                             </div>
                         </div>
                         <div style="margin-top:10px; font-size:14px;">
                             <span>Items: ${order.items.length} | Total: <strong style="color:var(--primary);">₹${order.total}</strong></span>
                         </div>
                         <div style="margin-top:15px; display:flex; justify-content:flex-end;">
-                            <button class="track-btn" onclick="openTracker('${index}')"><i class="fas fa-truck"></i> View Details & Track</button>
+                            <button class="cta-btn" style="font-size:12px; padding:8px 20px;" onclick="openTracker('${index}')"><i class="fas fa-truck"></i> View Details & Track</button>
                         </div>
                     </div>
                 `;
@@ -540,11 +611,9 @@
             container.innerHTML = html;
         }
 
-        // --- OPEN TRACKER MODAL ---
         function openTracker(orderIndex) {
             const order = orders.slice().reverse()[orderIndex];
             if(!order) return;
-
             document.getElementById('trackerIdDisplay').innerText = `Order #${order.id}`;
             
             const steps = [
@@ -556,44 +625,30 @@
             ];
 
             let html = '';
-            let currentStatus = order.status; // 1 to 5
-            
+            let currentStatus = order.status;
             steps.forEach((step, index) => {
                 let stepNum = index + 1;
                 let isCompleted = stepNum < currentStatus;
                 let isActive = stepNum === currentStatus;
-                
-                // If status is 5 (Delivered), mark all as completed
                 if(currentStatus === 5) { isCompleted = true; isActive = (stepNum === 5); }
-
-                // Adjust text for pending future steps
                 let descText = step.desc;
-                if(!isCompleted && !isActive && currentStatus !== 5) {
-                    descText = 'Pending...';
-                }
+                if(!isCompleted && !isActive && currentStatus !== 5) descText = 'Pending...';
 
                 html += `
                     <div class="track-step-item ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}">
                         <div class="step-dot"></div>
-                        <div class="step-text">${step.label}</div>
+                        <div class="step-text" style="font-weight:600;">${step.label}</div>
                         <div class="step-desc">${descText}</div>
                     </div>
                 `;
             });
-
             document.getElementById('trackerTimeline').innerHTML = html;
             
-            // Update footer ETA
             const footer = document.getElementById('trackerFooter');
-            if(currentStatus === 5) {
-                footer.innerHTML = '✅ Your order has been <strong style="color:var(--primary);">Delivered</strong>.';
-            } else if(currentStatus === 4) {
-                footer.innerHTML = '🚚 Your package is <strong style="color:var(--primary);">Out for Delivery</strong>. Expected today!';
-            } else if(currentStatus === 3) {
-                footer.innerHTML = '📦 In Transit. Estimated Delivery: <strong style="color:var(--primary);">2-3 Business Days</strong>';
-            } else {
-                footer.innerHTML = '⏳ Being prepared. Estimated Delivery: <strong style="color:var(--primary);">3-5 Business Days</strong>';
-            }
+            if(currentStatus === 5) footer.innerHTML = '✅ Your order has been <strong style="color:var(--primary);">Delivered</strong>.';
+            else if(currentStatus === 4) footer.innerHTML = '🚚 Your package is <strong style="color:var(--primary);">Out for Delivery</strong>. Expected today!';
+            else if(currentStatus === 3) footer.innerHTML = '📦 In Transit. Estimated Delivery: <strong style="color:var(--primary);">2-3 Business Days</strong>';
+            else footer.innerHTML = '⏳ Being prepared. Estimated Delivery: <strong style="color:var(--primary);">3-5 Business Days</strong>';
 
             document.getElementById('trackerModal').style.display = 'flex';
         }
